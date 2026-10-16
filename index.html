@@ -45,8 +45,8 @@
   .stage {
     position: relative;
     /* keep the whole card plus the buttons on one phone screen */
-    width: min(100%, 360px, max(200px, calc((100vh - 400px) * 630 / 1020)));
-    width: min(100%, 360px, max(200px, calc((100svh - 400px) * 630 / 1020)));
+    width: min(100%, 360px, max(280px, calc((100vh - 400px) * 630 / 1020)));
+    width: min(100%, 360px, max(280px, calc((100svh - 400px) * 630 / 1020)));
     aspect-ratio: 630 / 1020;
     border-radius: 18px;
     box-shadow: 0 14px 40px rgba(0, 0, 0, .45), 0 0 0 3px rgba(245, 201, 106, .55);
@@ -103,6 +103,16 @@
   .theme .ico { font-size: 20px; display: inline-grid; place-items: center; width: 24px; height: 24px; }
   .theme .ico svg { width: 24px; height: 24px; }
   .theme[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: 0 3px 10px rgba(0, 0, 0, .25); }
+  .pokemon-fields { width: min(100%, 380px); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pokemon-fields label { display: flex; flex-direction: column; gap: 5px; font-size: 13px; min-width: 0; }
+  .pokemon-fields .wide { grid-column: 1 / -1; }
+  .pokemon-fields input, .pokemon-fields select { width: 100%; padding: 10px; border: 1px solid var(--gold); border-radius: 9px; background: #fff; color: var(--ink); font: inherit; }
+  .pokemon-fields label.inline-field { flex-direction: row; align-items: center; gap: 12px; }
+  .inline-field input, .inline-field select { flex: 1; min-width: 0; }
+  .category-options { width: min(100%, 380px); display: flex; align-items: center; gap: 12px; font-size: 14px; }
+  .category-options label { flex: 1; }
+  .category-options select { min-width: 175px; max-width: 60%; padding: 12px; border: 1px solid var(--gold); border-radius: 12px; background: #fff; color: var(--ink); font: inherit; }
+  button:focus-visible, select:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
   .tags-wrap { width: min(100%, 380px); display: flex; flex-direction: column; gap: 8px; }
   .tags-label { font-size: 14px; font-weight: 600; opacity: .85; text-align: center; }
   .tags { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
@@ -155,10 +165,44 @@
   <p class="sub">Jheel's Birthday 2026 🎉</p>
 
   <div class="themes" role="group" aria-label="Pick a card style">
-    <button class="theme" data-theme="queen" aria-pressed="true"><span class="ico">👑</span>Queen</button>
-    <button class="theme" data-theme="seahorse" aria-pressed="false"><span class="ico"></span>Seahorse</button>
-    <button class="theme" data-theme="libra" aria-pressed="false"><span class="ico"></span>Libra</button>
+    <button class="theme" data-theme="queen" aria-pressed="true"><span class="ico">👑</span>Face cards</button>
+    <button class="theme" data-theme="zodiac" aria-pressed="false"><span class="ico">♎︎</span>Zodiac</button>
     <button class="theme" data-theme="wingspan" aria-pressed="false"><span class="ico"></span>Wingspan</button>
+    <button class="theme" data-theme="pokemon" aria-pressed="false"><span class="ico">⚡</span>Pokémon</button>
+  </div>
+
+  <div id="faceOptions" class="category-options">
+    <label for="faceRank">Choose your face card</label>
+    <select id="faceRank"><option value="Queen" selected>Queen · Q</option><option value="King">King · K</option><option value="Jack">Jack · J</option><option value="Ace">Ace · A</option></select>
+  </div>
+
+  <div id="categoryOptions" class="category-options hidden">
+    <label id="optionLabel" for="variant">Choose your sign</label>
+    <select id="variant"></select>
+  </div>
+
+  <div id="pokemonFields" class="pokemon-fields hidden">
+    <label>Name<input id="pokemonName" maxlength="22" value="Jheel"></label>
+    <label>HP<input id="pokemonHP" type="number" min="10" max="999" value="150"></label>
+    <label>Type<select id="pokemonType"><option>Electric</option><option>Fire</option><option>Water</option><option>Grass</option><option>Psychic</option><option>Fighting</option><option>Dark</option><option>Fairy</option><option>Dragon</option><option>Normal</option></select></label>
+    <label>Attack idea<select id="pokemonAttackPreset"><option>Pep Talk</option><option>Overthink</option><option>Social Recharge</option><option>Snack Break</option><option>Power Nap</option><option>Happy Dance</option><option>Group Hug</option><option>Inside Joke</option><option>Plot Twist</option><option>Main Character</option><option>One More Song</option><option>Good Vibes</option><option>Custom</option></select></label>
+    <label>Attack name<input id="pokemonAttack" maxlength="30" value="Pep Talk"></label>
+    <label>Attack damage<input id="pokemonDamage" type="number" min="0" max="999" value="30"></label>
+    <label class="wide">Attack description<input id="pokemonDescription" maxlength="90" value="Give a friend a confidence boost. Both of you recover 30 energy."></label>
+    <label>Weakness<select id="pokemonWeakness"><option>None</option><option selected>Overthinking</option><option>Low social battery</option><option>Sleep deprivation</option><option>Small talk</option><option>Monday mornings</option><option>Being hangry</option><option>Unread messages</option><option>Decision fatigue</option><option>Running late</option><option>Cute dogs</option><option>FOMO</option><option>Awkward silence</option><option>One more episode</option><option>Slow Wi-Fi</option></select></label>
+    <label>Resistance drink<select id="pokemonResistance"><option>None</option><option>Coffee</option><option>Chai</option><option selected>Matcha</option><option>Water</option><option>Iced latte</option><option>Cold brew</option><option>Bubble tea</option><option>Hot chocolate</option><option>Lemonade</option><option>Sparkling water</option><option>Coconut water</option><option>Smoothie</option><option>Orange juice</option><option>Mocktail</option><option>Margarita</option><option>Wine</option><option>Beer</option></select></label>
+    <label>Retreat cost<select id="pokemonRetreat"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
+
+  </div>
+
+  <div id="birdFields" class="pokemon-fields hidden">
+    <label>Your name<input id="birdName" maxlength="26" value="Jheel"></label>
+    <label class="wide inline-field">Habitat<select id="humanHabitat"><option>Cities</option><option>Mountains</option><option>Beaches</option><option>Rivers</option><option>Forests</option><option>Lakes</option><option>Countryside</option><option>Deserts</option><option>Islands</option><option>Parks</option><option>Cozy homes</option><option>Coffee shops</option></select></label>
+    <label class="wide inline-field">Food<select id="humanFood"><option selected>Rice bowls</option><option>Birthday cake</option><option>Pizza</option><option>Sushi</option><option>Tacos</option><option>Pasta</option><option>Biryani</option><option>Dumplings</option><option>Noodles</option><option>Burgers</option><option>Fries</option><option>Ice cream</option><option>Chocolate</option><option>Chaat</option><option>Dosa</option><option>Pani puri</option><option>Ramen</option><option>Salad</option><option>Fruit</option></select></label>
+    <label>Social energy (%)<input id="birdSpan" type="number" min="1" max="100" value="85"></label>
+    <label>Party role<select id="birdHabitat"><option>Social butterfly</option><option>Dance-floor legend</option><option>Snack enthusiast</option><option>Memory maker</option><option>Cozy companion</option><option selected>Hype human</option><option>Playlist curator</option><option>Cake connoisseur</option><option>Adventure buddy</option><option>Storyteller</option><option>Karaoke superstar</option><option>Game-night champion</option><option>Photo booth pro</option><option>Pun specialist</option><option>Thoughtful listener</option><option>Confetti captain</option><option>Outfit icon</option><option>Midnight philosopher</option><option>Group hug initiator</option><option>Surprise planner</option></select></label>
+    <label>Joy points<input id="birdPoints" type="number" min="0" max="99" value="10"></label>
+    <label class="wide">Your little talent<input id="birdAbility" maxlength="110" value="Always knows where to get good food."></label>
   </div>
 
   <div class="stage">
@@ -174,9 +218,9 @@
 
   <div class="buttons">
     <div class="row">
-      <label class="btn primary big" id="takeBtn" for="cameraInput" role="button">📸 Take photo</label>
-      <label class="btn secondary big" id="pickBtn" for="fileInput" role="button">🖼️ Photos</label>
+      <label class="btn primary big" id="pickBtn" for="fileInput" role="button" tabindex="0" aria-describedby="photoHelp">🖼️ Photos</label>
     </div>
+    <p id="photoHelp" style="margin: 0; text-align: center; font-size: 14px; opacity: .85;">Send your pictures through AirDrop, then select them from Photos.</p>
     <div class="row hidden" id="exportRow">
       <button class="btn primary" id="downloadBtn">⬇️ Download card</button>
       <button class="btn secondary hidden" id="shareBtn">📤 Share</button>
@@ -190,17 +234,6 @@
     <button class="suit" data-suit="spades" aria-pressed="false" aria-label="Spades"></button>
   </div>
 
-  <div class="tags-wrap">
-    <div class="tags-label">📍 Location tag</div>
-    <div class="tags" role="group" aria-label="Pick a location tag style">
-      <button class="tag t-classic" data-tag="classic" aria-pressed="true"><span>Classic</span></button>
-      <button class="tag t-gradient" data-tag="gradient" aria-pressed="false">Gradient</button>
-      <button class="tag t-dark" data-tag="dark" aria-pressed="false">Dark</button>
-      <button class="tag t-post" data-tag="post" aria-pressed="false"><i></i>Post</button>
-    </div>
-  </div>
-
-  <input type="file" id="cameraInput" accept="image/*" capture="environment">
   <input type="file" id="fileInput" accept="image/*">
 
   <footer>Prints as 2.1 × 3.4 in · made with love 💛</footer>
@@ -230,6 +263,8 @@
   const title = document.querySelector('h1');
 
   let suit = 'hearts';
+  let face = 'Queen';
+  const FACE_LETTERS = { Queen: 'Q', King: 'K', Jack: 'J', Ace: 'A' };
   let photo = null;            // canvas holding the (possibly downscaled) photo
   let baseScale = 1;           // scale that makes the photo exactly cover INNER
   let zoom = 1;                // user zoom on top of baseScale
@@ -329,13 +364,6 @@
     oy = Math.min(my, Math.max(-my, oy));
   }
 
-  // ---------- seahorse + libra artwork (SVG paths in a 100x100 box) ----------
-  const SEAHORSE_BODY = new Path2D('M14 18.5L28 16C30 8 40 3 50 7C57 10 60 18 56 26C54 29 54 31 56 33C66 40 68 54 62 66C60 72 58 78 55 82C50 80 44 74 40 66C36 58 37 48 42 42C44 38 44 34 40 31C36 28 32 27 28 26L14 25.5C11 25.5 11 18.5 14 18.5Z' +
-    'M42 6L44 0L47 6ZM48 7L52 2L53 9ZM63 46C73 46 75 58 65 61Z');
-  const SEAHORSE_TAIL = new Path2D('M57 78C58 88 54 96 46 96C39 96 37 89 42 87C45 86 47 89 45 91');
-  const SEAHORSE_RIDGES = new Path2D('M43 47Q52 49 61 45M41 55Q52 57 63 53M42 63Q52 65 62 62M46 71Q52 73 59 71M66 50L70 51M66 55L70 56');
-  const LIBRA = new Path2D('M15 80L85 80M15 64L33 64C22 52 30 27 50 27C70 27 78 52 67 64L85 64');
-
   const BIRD_BODY = new Path2D('M6 35L19 30C21 22 28 18 34 19C41 20 45 26 47 31C56 33 66 38 76 45L97 55L95 60L80 58C74 63 64 66 54 66C42 66 30 61 24 52C22 46 22 41 20 38L6 36Z');
   const BIRD_WING = new Path2D('M44 38C56 37 70 44 80 54C70 58 58 58 50 54C44 50 41 44 44 38Z');
   const BIRD_BREAST = new Path2D('M27 40C31 50 40 58 52 60C42 63 31 59 26 51C24 47 24 43 27 40Z');
@@ -346,9 +374,11 @@
     c.save();
     c.translate(x, y);
     c.scale(k, k);
-    c.fillStyle = WING.teal; c.fill(BIRD_BODY);
-    c.fillStyle = WING.deep; c.fill(BIRD_WING);
-    c.fillStyle = WING.orange; c.fill(BIRD_BREAST);
+    const plumage = BIRDS[bird];
+    c.fillStyle = plumage.teal; c.fill(BIRD_BODY);
+    if (bird === 'Cardinal') { c.beginPath(); c.moveTo(22,23); c.lineTo(29,8); c.lineTo(39,23); c.fill(); }
+    c.fillStyle = plumage.deep; c.fill(BIRD_WING);
+    c.fillStyle = plumage.orange; c.fill(BIRD_BREAST);
     c.fillStyle = '#1c2b2a'; c.beginPath(); c.arc(29, 27, 2.6, 0, Math.PI * 2); c.fill();
     if (perch) { c.strokeStyle = WING.brown; c.lineWidth = 3; c.lineCap = 'round'; c.stroke(BIRD_PERCH); }
     c.restore();
@@ -365,40 +395,37 @@
     c.restore();
   }
 
-  // x,y = top-left of the 100x100 box, k = scale (1 = 100px)
-  function drawSeahorse(c, x, y, k, color, bg, detail = true) {
+  function drawZodiac(c, x, y, k, color) {
     c.save();
-    c.translate(x, y);
-    c.scale(k, k);
     c.fillStyle = color;
-    c.fill(SEAHORSE_BODY);
-    c.strokeStyle = color;
-    c.lineWidth = 6;
-    c.lineCap = 'round';
-    c.stroke(SEAHORSE_TAIL);
-    if (detail) {
-      c.globalAlpha = 0.45;
-      c.strokeStyle = bg;
-      c.lineWidth = 1.6;
-      c.stroke(SEAHORSE_RIDGES);
-      c.globalAlpha = 1;
-      c.fillStyle = bg;
-      c.beginPath();
-      c.arc(44, 13, 2.4, 0, Math.PI * 2);
-      c.fill();
-    }
+    c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.font = `${82 * k}px "Arial", "DejaVu Sans", sans-serif`;
+    c.fillText(SIGNS[sign], x + 50 * k, y + 50 * k);
     c.restore();
   }
-  function drawLibra(c, x, y, k, color) {
-    c.save();
-    c.translate(x, y);
-    c.scale(k, k);
-    c.strokeStyle = color;
-    c.lineWidth = 7;
-    c.lineCap = 'round';
-    c.lineJoin = 'round';
-    c.stroke(LIBRA);
+  function drawPokemon(c, x, y, k) {
+    c.save(); c.translate(x, y); c.scale(k, k);
+    const col = POKEMON[monster].color;
+    const oval = (x,y,rx,ry,color) => { c.beginPath(); c.ellipse(x,y,rx,ry,0,0,Math.PI*2); c.fillStyle=color; c.fill(); };
+    if (monster === 'Pikachu') {
+      oval(27,24,9,24,col); oval(73,24,9,24,col);
+      oval(27,7,7,9,'#302b32'); oval(73,7,7,9,'#302b32');
+    } else if (monster === 'Bulbasaur') {
+      c.fillStyle = '#3f9854'; c.beginPath(); c.moveTo(24,35); c.lineTo(40,0); c.lineTo(50,15); c.lineTo(67,0); c.lineTo(78,40); c.fill();
+    }
+    oval(50,60,39,33,col);
+    if (monster === 'Bulbasaur') { oval(29,45,6,4,'#337f70'); oval(64,38,5,3,'#337f70'); }
+    oval(35,56,4,6,'#222'); oval(65,56,4,6,'#222');
+    oval(34,54,1.5,2,'white'); oval(64,54,1.5,2,'white');
+    if (monster === 'Pikachu') { oval(21,69,7,6,'#e45b4b'); oval(79,69,7,6,'#e45b4b'); }
+    c.strokeStyle='#302b32'; c.lineWidth=2.5; c.beginPath(); c.arc(50,68,9,0.15,Math.PI-0.15); c.stroke();
     c.restore();
+  }
+  function drawPokeball(c, x, y, r) {
+    c.save(); c.translate(x,y); c.fillStyle='#fff'; c.beginPath(); c.arc(0,0,r,0,Math.PI*2); c.fill();
+    c.fillStyle='#dd4850'; c.beginPath(); c.arc(0,0,r,Math.PI,Math.PI*2); c.fill();
+    c.strokeStyle='#302b32'; c.lineWidth=2; c.beginPath(); c.arc(0,0,r,0,Math.PI*2); c.moveTo(-r,0); c.lineTo(r,0); c.stroke();
+    c.beginPath(); c.arc(0,0,r*.28,0,Math.PI*2); c.fillStyle='#fff'; c.fill(); c.stroke(); c.restore();
   }
   function drawSparkle(c, cx, cy, r, color) {
     c.save();
@@ -414,14 +441,30 @@
     c.restore();
   }
 
-  const SEA = { light: '#14a3a8', dark: '#0a4f7a', coral: '#ff8a6b' };
+  const SIGNS = { Aries: '♈︎', Taurus: '♉︎', Gemini: '♊︎', Cancer: '♋︎', Leo: '♌︎', Virgo: '♍︎', Libra: '♎︎', Scorpio: '♏︎', Sagittarius: '♐︎', Capricorn: '♑︎', Aquarius: '♒︎', Pisces: '♓︎' };
+  const BIRDS = {
+    Robin: { teal: '#788276', deep: '#50594f', orange: '#dc763b' },
+    Bluebird: { teal: '#5c9bcd', deep: '#30689a', orange: '#db9d68' },
+    Cardinal: { teal: '#cb4848', deep: '#8c2937', orange: '#e8744b' },
+    Goldfinch: { teal: '#e4bf42', deep: '#363c42', orange: '#f2dc79' },
+    Hummingbird: { teal: '#42a398', deep: '#286a72', orange: '#d881a0' },
+    Peacock: { teal: '#458bb3', deep: '#365889', orange: '#60af98' },
+    Flamingo: { teal: '#e5a0ad', deep: '#ba647f', orange: '#f2c1b1' },
+    Raven: { teal: '#626579', deep: '#363847', orange: '#9195a9' },
+    Dove: { teal: '#c5bfaf', deep: '#908a83', orange: '#e8dccc' },
+    Parrot: { teal: '#66a76b', deep: '#356a72', orange: '#e6ae4c' },
+    Kingfisher: { teal: '#42a2be', deep: '#23677e', orange: '#da8b4f' },
+    Swallow: { teal: '#617d9e', deep: '#334d6c', orange: '#dfc5ad' },
+  };
+  const POKEMON = { Pikachu: { color: '#f4d34e' }, Bulbasaur: { color: '#85cbb0' }, Squirtle: { color: '#81c7db' } };
+  let sign = 'Libra', bird = 'Robin', monster = 'Pikachu';
   const NIGHT = { light: '#4a2c6e', dark: '#1f1747', gold: '#f5c96a' };
   const WING = { paper: '#f4ecd8', teal: '#3f8f8a', deep: '#2a6b67', orange: '#e9a23b', brown: '#6b5238', eggs: ['#b9dccf', '#f3d9a4', '#e7b9a6', '#cfd8ee'] };
 
   const THEMES = {
     queen: {
-      title: () => '👑 Queen of ' + SUITS[suit].name,
-      file: () => 'queen-of-' + suit,
+      title: () => '👑 ' + face + ' of ' + SUITS[suit].name,
+      file: () => face.toLowerCase() + '-of-' + suit,
       accent: () => SUITS[suit].color,
       border: () => '#fff',
       placeholder: ['#fbe3ec', '#f7d58f'],
@@ -432,42 +475,21 @@
         c.textAlign = 'center';
         c.textBaseline = 'alphabetic';
         c.font = 'bold 88px Georgia, "Times New Roman", Times, serif';
-        c.fillText('Q', TAB_CX, 106);
+        c.fillText(FACE_LETTERS[face], TAB_CX, 106);
         drawSuit(c, suit, TAB_CX, 170, 54, color);
       },
       decorate() {},
       icon: (c, cx, cy, h) => drawSuit(c, suit, cx, cy, h * 0.8, SUITS[suit].color),
     },
-    seahorse: {
-      title: () => '🌊 Seahorse Card',
-      file: () => 'seahorse-card',
-      accent: () => '#ffffff',
-      border: (c) => { const g = c.createLinearGradient(0, 0, W, H); g.addColorStop(0, SEA.light); g.addColorStop(1, SEA.dark); return g; },
-      placeholder: ['#c9f1ef', '#86cde3'],
-      bigIcon(c) { drawSeahorse(c, W / 2 - 150, H / 2 - 230, 3, SEA.dark + '30', '#000', false); },
-      tab(c) {
-        drawSeahorse(c, 20, 52, 1.3, SEA.coral, SEA.light);
-        c.strokeStyle = 'rgba(255,255,255,.8)';
-        c.lineWidth = 2.5;
-        [[100, 46, 6], [109, 30, 4], [96, 22, 3]].forEach(([x, y, r]) => { c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.stroke(); });
-      },
-      decorate(c) {
-        // little bubbles floating in the border
-        c.strokeStyle = 'rgba(255,255,255,.65)';
-        c.lineWidth = 2;
-        borderSpots(23).forEach(([x, y], i) => { c.beginPath(); c.arc(x, y, 3 + (i * 7 % 4), 0, Math.PI * 2); c.stroke(); });
-      },
-      icon: (c, cx, cy, h) => drawSeahorse(c, cx - h * 0.42, cy - h * 0.5, h / 100, SEA.coral, '#fff', false),
-    },
-    libra: {
-      title: () => '✨ Libra Card',
-      file: () => 'libra-card',
+    zodiac: {
+      title: () => '✨ ' + sign + ' Card',
+      file: () => sign.toLowerCase() + '-card',
       accent: () => NIGHT.gold,
       border: (c) => { const g = c.createLinearGradient(0, 0, W, H); g.addColorStop(0, NIGHT.light); g.addColorStop(1, NIGHT.dark); return g; },
       placeholder: ['#e4dcfa', '#f6e2b3'],
-      bigIcon(c) { drawLibra(c, W / 2 - 150, H / 2 - 260, 3, NIGHT.light + '40'); },
+      bigIcon(c) { drawZodiac(c, W / 2 - 150, H / 2 - 260, 3, NIGHT.light + '40'); },
       tab(c) {
-        drawLibra(c, TAB_CX - 50 * 1.1, 22, 1.1, NIGHT.gold);
+        drawZodiac(c, TAB_CX - 50 * 1.1, 22, 1.1, NIGHT.gold);
         drawSparkle(c, TAB_CX, 158, 20, NIGHT.gold);
         drawSparkle(c, TAB_CX + 26, 132, 8, NIGHT.gold);
       },
@@ -475,11 +497,11 @@
         borderSpots(29).forEach(([x, y], i) => drawSparkle(c, x, y, 4 + (i * 5 % 4), 'rgba(245,201,106,.85)'));
       },
       avatarBg: NIGHT.dark,
-      icon: (c, cx, cy, h) => drawLibra(c, cx - h * 0.55, cy - h * 0.6, h / 100 * 1.1, NIGHT.gold),
+      icon: (c, cx, cy, h) => drawZodiac(c, cx - h * 0.55, cy - h * 0.6, h / 100 * 1.1, NIGHT.gold),
     },
     wingspan: {
-      title: () => '🪶 Wingspan Card',
-      file: () => 'wingspan-card',
+      title: () => '🪶 ' + (document.getElementById('birdName').value.trim() || 'Jheel') + ' Card',
+      file: () => 'wingspan-' + (document.getElementById('birdName').value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-') || bird.toLowerCase()),
       accent: () => WING.brown,
       border: () => WING.paper,
       placeholder: ['#d9eee5', '#f5e4c3'],
@@ -493,6 +515,16 @@
       },
       icon: (c, cx, cy, h) => drawBird(c, cx - h * 0.52, cy - h * 0.5, h / 100, false),
     },
+  };
+  THEMES.pokemon = {
+    title: () => '⚡ Your Pokémon Card',
+    file: () => 'pokemon-' + (document.getElementById('pokemonName').value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'custom'),
+    accent: () => '#d7a52c', border: () => '#fff4c9',
+    placeholder: ['#fff3b4', '#e2edf9'],
+    bigIcon(c) { c.save(); c.globalAlpha = 0.35; drawPokemon(c, W/2 - 135, H/2 - 225, 2.7); c.restore(); },
+    tab(c) { drawPokemon(c, TAB_CX - 48, 32, 0.96); drawPokeball(c, TAB_CX, 170, 20); },
+    decorate(c) { borderSpots(22).forEach(([x,y]) => drawPokeball(c,x,y,6)); },
+    icon: (c,cx,cy,h) => drawPokemon(c,cx-h/2,cy-h/2,h/100),
   };
   let theme = 'queen';
   const TAB_CX = 30 + (TAB.w - 30) / 2 + 2;
@@ -631,9 +663,139 @@
     c.restore();
   }
 
+  // The photo keeps the same cover crop, zoom, and drag coordinates as other styles.
+  const TYPE_COLORS = { Electric: '#f5d657', Fire: '#ec9365', Water: '#8ac5e5', Grass: '#a2cf87', Psychic: '#c6a0d9', Fighting: '#cbaa86', Dark: '#929da8', Fairy: '#ebafd1', Dragon: '#b2a0d2', Normal: '#ddd5bc' };
+  function drawHumanIcon(c,kind,x,y,size,color='#6d7d68') {
+    c.save(); c.translate(x,y); c.scale(size/32,size/32); c.strokeStyle=color; c.lineWidth=1.8; c.lineCap='round'; c.lineJoin='round'; c.beginPath();
+    if(kind==='habitat') { c.moveTo(3,25); c.lineTo(12,8); c.lineTo(21,25); c.lineTo(3,25); c.moveTo(16,25); c.lineTo(24,13); c.lineTo(31,25); c.moveTo(9,14); c.lineTo(12,17); c.lineTo(15,14); }
+    else if(kind==='food') { c.arc(18,17,9,0,Math.PI*2); c.moveTo(2,5); c.lineTo(2,15); c.lineTo(7,15); c.lineTo(7,5); c.moveTo(4.5,5); c.lineTo(4.5,28); }
+    else if(kind==='joy') { c.moveTo(16,27); c.bezierCurveTo(1,17,1,8,8,6); c.bezierCurveTo(12,5,15,8,16,11); c.bezierCurveTo(18,4,28,4,29,12); c.bezierCurveTo(30,18,20,25,16,27); }
+    else if(kind==='energy') { c.moveTo(18,3); c.lineTo(8,18); c.lineTo(16,18); c.lineTo(13,29); c.lineTo(25,13); c.lineTo(17,13); c.closePath(); }
+    else { c.arc(16,10,6,0,Math.PI*2); c.moveTo(4,29); c.bezierCurveTo(4,13,28,13,28,29); }
+    c.stroke(); c.restore();
+  }
+  function renderWingspanCard(c) {
+    const value = id => document.getElementById(id).value.trim();
+    const ink='#344036', muted='#7b8070', rule='#d4d2c0';
+    c.save(); c.setTransform(1,0,0,1,0,0);
+    c.fillStyle='#f7f4e9'; c.fillRect(0,0,W,H);
+    roundRectPath(c,18,18,W-36,H-36,18); c.strokeStyle='#c4c6b1'; c.lineWidth=2; c.stroke();
+    c.textBaseline='middle'; c.textAlign='left'; c.fillStyle=muted; c.font='600 15px Arial'; c.fillText('THE BIRTHDAY FLOCK',44,54);
+    c.fillStyle=ink; c.font='bold 43px Palatino, "Book Antiqua", Georgia, serif'; c.fillText(value('birdName') || 'Jheel',42,104,535);
+    c.fillStyle=muted; c.font='22px Arial'; c.fillText(value('birdHabitat'),44,148,530);
+    c.strokeStyle=rule; c.beginPath(); c.moveTo(44,181); c.lineTo(586,181); c.stroke();
+    const points=Math.min(99,Math.max(0,Number(value('birdPoints')) || 0));
+    const energy=Math.min(100,Math.max(1,Number(value('birdSpan')) || 1));
+    // Each stat has one icon and one value, aligned in a quiet left column.
+    const stat=(kind,label,text,y) => {
+      c.fillStyle=muted; c.font='600 15px Arial'; c.fillText(label,44,y);
+      drawHumanIcon(c,kind,43,y+20,28);
+      c.fillStyle=ink; c.font='22px Arial'; c.fillText(text,81,y+35,130);
+    };
+    stat('habitat','HABITAT',value('humanHabitat') || 'Cities',235);
+    stat('food','FAVORITE FOOD',value('humanFood') || 'Rice bowls',350);
+    stat('joy','JOY POINTS',String(points),465);
+    stat('energy','SOCIAL ENERGY',energy+'%',580);
+    const box={x:236,y:211,w:350,h:451};
+    c.save(); c.beginPath(); c.rect(box.x,box.y,box.w,box.h); c.clip();
+    if(photo) {
+      c.translate(box.x,box.y); c.scale(box.w/INNER.w,box.h/INNER.h);
+      const scale=baseScale*zoom;
+      c.drawImage(photo,INNER.w/2+ox-photo.width*scale/2,INNER.h/2+oy-photo.height*scale/2,photo.width*scale,photo.height*scale);
+    } else {
+      const wash=c.createLinearGradient(box.x,box.y,586,662); wash.addColorStop(0,'#e9eddf'); wash.addColorStop(1,'#dbe3d1');
+      c.fillStyle=wash; c.fillRect(box.x,box.y,box.w,box.h);
+      drawHumanIcon(c,'person',365,350,94,'#8a9b83');
+      c.textAlign='center'; c.fillStyle='#71816a'; c.font='22px Arial'; c.fillText('Your photo',411,506);
+    }
+    c.restore();
+    c.fillStyle=muted; c.font='16px Arial'; c.textAlign='right'; c.fillText(bird+' spirit',584,690);
+    c.fillStyle='#e3dfcb'; c.fillRect(35,727,560,191);
+    c.fillStyle='#697a60'; c.fillRect(35,727,560,42);
+    c.textAlign='left'; c.fillStyle='#fffdf5'; c.font='600 18px Arial'; c.fillText('WHEN ACTIVATED',53,749);
+    c.fillStyle=ink; c.font='25px Arial'; let line='', y=803;
+    (value('birdAbility') || 'Always knows where to get good food.').split(/\s+/).forEach(word => {
+      const next=line+word+' '; if(c.measureText(next).width>520 && line) { c.fillText(line,53,y); line=word+' '; y+=33; } else line=next;
+    }); c.fillText(line,53,y);
+    c.textAlign='center'; c.fillStyle=muted; c.font='18px Arial'; c.fillText('A rare human. A familiar face. One of a kind.',315,949);
+    c.font='16px Arial'; c.fillText("Jheel’s Birthday 2026 • Golden Gate Park",315,978);
+    c.restore();
+  }
+  document.querySelectorAll('#birdFields input, #birdFields select').forEach(input => input.addEventListener('input', () => { refreshTitle(); render(); }));
+  function drawEnergy(c,x,y,r,type) {
+    const symbols={Electric:'ϟ',Fire:'▲',Water:'●',Grass:'♣',Psychic:'◉',Fighting:'◆',Dark:'☾',Fairy:'✦',Dragon:'✶',Normal:'★'};
+    c.save(); c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fillStyle=TYPE_COLORS[type]; c.fill(); c.strokeStyle='#695e4a'; c.lineWidth=1.5; c.stroke();
+    c.fillStyle='#302e2a'; c.textAlign='center'; c.textBaseline='middle'; c.font=`bold ${r*1.5}px Arial`; c.fillText(symbols[type] || '★',x,y+1); c.restore();
+  }
+  function renderPokemonCard(c) {
+    const value = id => document.getElementById(id).value.trim();
+    const type = value('pokemonType');
+    c.save(); c.setTransform(1,0,0,1,0,0);
+    c.fillStyle = '#eac443'; c.fillRect(0,0,W,H);
+    const paper=c.createLinearGradient(0,0,W,H); paper.addColorStop(0,'#fff7d4'); paper.addColorStop(.45,TYPE_COLORS[type]); paper.addColorStop(1,'#fff5cc');
+    roundRectPath(c,22,22,W-44,H-44,18); c.fillStyle=paper; c.fill();
+    roundRectPath(c,28,28,W-56,H-56,14); c.strokeStyle='rgba(138,96,17,.5)'; c.lineWidth=2; c.stroke();
+    c.fillStyle='#342d28'; c.textAlign='left'; c.textBaseline='middle';
+    roundRectPath(c,38,37,96,28,12); c.fillStyle='#e4dcc1'; c.fill(); c.fillStyle='#342d28'; c.font='italic bold 18px Arial'; c.fillText('BASIC',49,52);
+    c.font='bold 34px Arial'; c.fillText(value('pokemonName') || 'Jheel',40,94,365);
+    c.textAlign='right'; c.font='bold 27px Arial';
+    const hp = Math.min(999, Math.max(10, Number(value('pokemonHP')) || 150));
+    c.fillText('HP ' + hp,545,94);
+    drawEnergy(c,575,94,18,type);
+    const box={x:43,y:133,w:544,h:510};
+    const rim=c.createLinearGradient(0,128,W,648); rim.addColorStop(0,'#b2a47a'); rim.addColorStop(.5,'#fffbe6'); rim.addColorStop(1,'#a89a76'); c.fillStyle=rim; c.fillRect(box.x-7,box.y-7,box.w+14,box.h+14);
+    c.save(); c.beginPath(); c.rect(box.x,box.y,box.w,box.h); c.clip();
+    if (photo) {
+      // Transform the original full-card crop into the trading card art window.
+      c.translate(box.x,box.y); c.scale(box.w/INNER.w,box.h/INNER.h);
+      const scale=baseScale*zoom;
+      c.drawImage(photo, INNER.w/2+ox-photo.width*scale/2, INNER.h/2+oy-photo.height*scale/2, photo.width*scale,photo.height*scale);
+    } else {
+      const g=c.createLinearGradient(0,133,W,643); g.addColorStop(0,'#fff9df'); g.addColorStop(1,TYPE_COLORS[type]); c.fillStyle=g; c.fillRect(box.x,box.y,box.w,box.h);
+      c.fillStyle='#514735'; c.textAlign='center'; c.font='64px Arial'; c.fillText('✦',W/2,330);
+      c.font='bold 28px Arial'; c.fillText('Tap to add your photo',W/2,410);
+    }
+    c.restore();
+    c.fillStyle='#dfc88c'; c.fillRect(43,654,544,31); c.textAlign='center'; c.fillStyle='#514735'; c.font='italic 17px Arial'; c.fillText('NO. 001  •  ' + type + ' Pokémon  •  Birthday edition',W/2,670);
+    drawEnergy(c,64,737,16,type); drawEnergy(c,102,737,16,'Normal');
+    c.textAlign='left'; c.font='bold 29px Arial'; c.fillText(value('pokemonAttack') || 'Pep Talk',137,742,370);
+    c.textAlign='right'; c.fillText(String(Math.min(999,Math.max(0,Number(value('pokemonDamage')) || 0))),580,742);
+    c.textAlign='left'; c.font='21px Arial';
+    const words=(value('pokemonDescription') || 'Give a friend a confidence boost. Both of you recover 30 energy.').split(/\s+/); let line='', y=786;
+    words.forEach(word => { const next=line+word+' '; if(c.measureText(next).width>510 && line) { c.fillText(line,49,y); line=word+' '; y+=28; } else line=next; });
+    c.fillText(line,49,y);
+    c.strokeStyle='rgba(70,53,30,.4)'; c.lineWidth=2; c.beginPath(); c.moveTo(44,875); c.lineTo(586,875); c.stroke();
+    c.font='16px Arial'; c.fillText('weakness',49,899); c.fillText('resistance drink',242,899); c.fillText('retreat cost',445,899);
+    c.save(); c.font='bold 16px Arial';
+    c.fillText(value('pokemonWeakness') === 'None' ? '—' : value('pokemonWeakness') + ' ×2',49,928,175);
+    c.fillText(value('pokemonResistance') === 'None' ? '—' : value('pokemonResistance') + ' −30',242,928,180);
+    c.restore();
+    const retreat = Number(value('pokemonRetreat'));
+    if (!retreat) c.fillText('—',459,928);
+    for (let i=0;i<retreat;i++) drawEnergy(c,459+i*30,928,12,'Normal');
+    c.textAlign='center'; c.font='italic 18px Arial'; c.fillText("Jheel’s Birthday 2026 • Golden Gate Park",W/2,951);
+    c.font='15px Arial'; c.fillText('A one-of-a-kind birthday Pokémon • 001 / 001 ★',W/2,980);
+    c.restore();
+  }
+  const ATTACK_IDEAS = {"Pep Talk": ["Give a friend a confidence boost. Both of you recover 30 energy.", 30], "Overthink": ["Consider every possible outcome. Your opponent waits one extra turn.", 60], "Social Recharge": ["Take a quiet moment. Restore 40 energy before your next big entrance.", 40], "Snack Break": ["Find your favorite snack. Restore 30 energy and remove the hangry effect.", 30], "Power Nap": ["Skip one turn. Wake up with 60 extra energy and a much better attitude.", 60], "Happy Dance": ["Dance like nobody is watching. Everyone nearby gains 20 joy.", 50], "Group Hug": ["Gather your favorite people. Each friend restores 20 energy.", 40], "Inside Joke": ["Only your closest friends understand. Deal 70 laughter damage.", 70], "Plot Twist": ["Change the plan at the last minute. Draw two cards and keep the adventure going.", 60], "Main Character": ["Make a dramatic entrance. Gain 80 confidence and take the spotlight.", 80], "One More Song": ["Keep the dance floor alive. Your next attack gains 20 extra damage.", 50], "Good Vibes": ["Turn the mood around. Clear one bad day effect from every friend.", 40]};
+  document.getElementById('pokemonAttackPreset').addEventListener('change', event => {
+    const idea = ATTACK_IDEAS[event.target.value];
+    if (!idea) { document.getElementById('pokemonAttack').focus(); return; }
+    document.getElementById('pokemonAttack').value = event.target.value;
+    document.getElementById('pokemonDescription').value = idea[0];
+    document.getElementById('pokemonDamage').value = idea[1];
+    render();
+  });
+  ['pokemonAttack','pokemonDescription','pokemonDamage'].forEach(id => document.getElementById(id).addEventListener('input', () => {
+    document.getElementById('pokemonAttackPreset').value = 'Custom';
+  }));
+  document.querySelectorAll('#pokemonFields input, #pokemonFields select').forEach(input => input.addEventListener('input', () => { refreshTitle(); render(); }));
+
   function render() {
     const c = ctx;
     const t = THEMES[theme];
+    if (theme === 'pokemon') { renderPokemonCard(c); return; }
+    if (theme === 'wingspan') { renderWingspanCard(c); return; }
     c.save();
     c.setTransform(1, 0, 0, 1, 0, 0);
     c.fillStyle = t.border(c);
@@ -684,15 +846,24 @@
     c.restore();
   }
 
-  function refreshTitle() { title.textContent = THEMES[theme].title(); }
+  function refreshTitle() {
+    title.textContent = THEMES[theme].title();
+    document.querySelector('[data-theme="zodiac"] .ico').textContent = SIGNS[sign];
+    const plumage = BIRDS[bird];
+    document.querySelector('[data-theme="wingspan"] .ico').innerHTML = `<svg viewBox="0 0 100 100" aria-hidden="true"><path fill="${plumage.teal}" d="M6 35L19 30C21 22 28 18 34 19C41 20 45 26 47 31C56 33 66 38 76 45L97 55L95 60L80 58C74 63 64 66 54 66C42 66 30 61 24 52C22 46 22 41 20 38L6 36Z"/><path fill="${plumage.orange}" d="M27 40C31 50 40 58 52 60C42 63 31 59 26 51C24 47 24 43 27 40Z"/>${bird === 'Cardinal' ? `<path fill="${plumage.teal}" d="M22 23L29 8L39 23Z"/>` : ''}</svg>`;
+    const type = document.getElementById('pokemonType').value;
+    const symbols = { Electric:'ϟ', Fire:'▲', Water:'●', Grass:'♣', Psychic:'◉', Fighting:'◆', Dark:'☾', Fairy:'✦', Dragon:'✶', Normal:'★' };
+    const pokemonIcon = document.querySelector('[data-theme="pokemon"] .ico');
+    pokemonIcon.textContent = symbols[type];
+    pokemonIcon.style.background = TYPE_COLORS[type];
+    pokemonIcon.style.color = '#302e2a';
+    pokemonIcon.style.borderRadius = '50%';
+  }
 
   // ---------- theme picker ----------
   const suitRow = document.querySelector('.suits');
   const themeBtns = [...document.querySelectorAll('.theme')];
-  const iconSVG = {
-    seahorse: `<svg viewBox="0 0 100 100" aria-hidden="true"><path fill="${SEA.coral}" d="M14 18.5L28 16C30 8 40 3 50 7C57 10 60 18 56 26C54 29 54 31 56 33C66 40 68 54 62 66C60 72 58 78 55 82C50 80 44 74 40 66C36 58 37 48 42 42C44 38 44 34 40 31C36 28 32 27 28 26L14 25.5C11 25.5 11 18.5 14 18.5ZM42 6L44 0L47 6ZM48 7L52 2L53 9ZM63 46C73 46 75 58 65 61Z"/><path fill="none" stroke="${SEA.coral}" stroke-width="7" stroke-linecap="round" d="M57 78C58 88 54 96 46 96C39 96 37 89 42 87C45 86 47 89 45 91"/></svg>`,
-    libra: `<svg viewBox="0 0 100 100" aria-hidden="true"><path fill="none" stroke="${NIGHT.gold}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" d="M15 80L85 80M15 64L33 64C22 52 30 27 50 27C70 27 78 52 67 64L85 64"/></svg>`,
-  };
+  const iconSVG = {};
   iconSVG.wingspan = `<svg viewBox="0 0 100 100" aria-hidden="true"><path fill="${WING.teal}" d="M6 35L19 30C21 22 28 18 34 19C41 20 45 26 47 31C56 33 66 38 76 45L97 55L95 60L80 58C74 63 64 66 54 66C42 66 30 61 24 52C22 46 22 41 20 38L6 36Z"/><path fill="${WING.orange}" d="M27 40C31 50 40 58 52 60C42 63 31 59 26 51C24 47 24 43 27 40Z"/></svg>`;
   themeBtns.forEach((b) => {
     const svg = iconSVG[b.dataset.theme];
@@ -701,18 +872,40 @@
       theme = b.dataset.theme;
       themeBtns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
       suitRow.classList.toggle('hidden', theme !== 'queen');
+      document.getElementById('faceOptions').classList.toggle('hidden', theme !== 'queen');
+      refreshOptions();
       refreshTitle();
       render();
     });
   });
 
-  // ---------- location tag picker ----------
-  const tagBtns = [...document.querySelectorAll('.tag')];
-  tagBtns.forEach((b) => b.addEventListener('click', () => {
-    tag = b.dataset.tag;
-    tagBtns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-    render();
-  }));
+  const optionsRow = document.getElementById('categoryOptions');
+  const variant = document.getElementById('variant');
+  function refreshOptions() {
+    optionsRow.classList.toggle('hidden', theme === 'queen' || theme === 'pokemon');
+    document.getElementById('pokemonFields').classList.toggle('hidden', theme !== 'pokemon');
+    document.getElementById('birdFields').classList.toggle('hidden', theme !== 'wingspan');
+    if (theme === 'queen' || theme === 'pokemon') return;
+    const choices = theme === 'zodiac' ? SIGNS : theme === 'wingspan' ? BIRDS : POKEMON;
+    const selected = theme === 'zodiac' ? sign : theme === 'wingspan' ? bird : monster;
+    document.getElementById('optionLabel').textContent = theme === 'zodiac' ? 'Choose your sign' : theme === 'wingspan' ? 'Bird inspiration' : 'Choose your Pokémon';
+    variant.replaceChildren(...Object.keys(choices).map(name => {
+      const option = document.createElement('option'); option.value = name;
+      option.textContent = theme === 'zodiac' ? SIGNS[name] + ' ' + name : name;
+      option.selected = name === selected; return option;
+    }));
+  }
+  variant.addEventListener('change', () => {
+    if (theme === 'zodiac') sign = variant.value;
+    else if (theme === 'wingspan') { bird = variant.value; }
+    else monster = variant.value;
+    refreshTitle(); render();
+  });
+
+  document.getElementById('faceRank').addEventListener('change', event => {
+    face = event.target.value;
+    refreshTitle(); render();
+  });
 
   // ---------- suit picker ----------
   const suitBtns = [...document.querySelectorAll('.suit')];
@@ -727,13 +920,15 @@
   });
 
   // ---------- photo input ----------
-  const cameraInput = document.getElementById('cameraInput');
   const fileInput = document.getElementById('fileInput');
-  [cameraInput, fileInput].forEach((inp) => inp.addEventListener('change', () => {
-    const f = inp.files && inp.files[0];
-    inp.value = '';
+  fileInput.addEventListener('change', () => {
+    const f = fileInput.files && fileInput.files[0];
+    fileInput.value = '';
     if (f) loadFile(f);
-  }));
+  });
+  document.getElementById('pickBtn').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); fileInput.click(); }
+  });
 
   function loadFile(file) {
     const url = URL.createObjectURL(file);
@@ -757,7 +952,6 @@
       zoomRow.classList.add('show');
       exportRow.classList.remove('hidden');
       setTimeout(() => exportRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
-      document.getElementById('takeBtn').innerHTML = '📸 Retake';
       render();
       hint.classList.add('show');
       clearTimeout(loadFile.t);
@@ -887,6 +1081,7 @@
   });
 
   // Draw once fonts are ready so the Q uses the serif face
+  refreshTitle();
   render();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
 })();
