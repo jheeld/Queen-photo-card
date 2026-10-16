@@ -185,13 +185,13 @@
     <label>Name<input id="pokemonName" maxlength="22" value="Jheel"></label>
     <label>HP<input id="pokemonHP" type="number" min="10" max="999" value="150"></label>
     <label>Type<select id="pokemonType"><option>Electric</option><option>Fire</option><option>Water</option><option>Grass</option><option>Psychic</option><option>Fighting</option><option>Dark</option><option>Fairy</option><option>Dragon</option><option>Normal</option></select></label>
-    <label>Attack idea<select id="pokemonAttackPreset"><option>Pep Talk</option><option>Overthink</option><option>Social Recharge</option><option>Snack Break</option><option>Power Nap</option><option>Happy Dance</option><option>Group Hug</option><option>Inside Joke</option><option>Plot Twist</option><option>Main Character</option><option>One More Song</option><option>Good Vibes</option><option>Custom</option></select></label>
-    <label>Attack name<input id="pokemonAttack" maxlength="30" value="Pep Talk"></label>
-    <label>Attack damage<input id="pokemonDamage" type="number" min="0" max="999" value="30"></label>
-    <label class="wide">Attack description<input id="pokemonDescription" maxlength="90" value="Give a friend a confidence boost. Both of you recover 30 energy."></label>
-    <label>Weakness<select id="pokemonWeakness"><option>None</option><option selected>Overthinking</option><option>Low social battery</option><option>Sleep deprivation</option><option>Small talk</option><option>Monday mornings</option><option>Being hangry</option><option>Unread messages</option><option>Decision fatigue</option><option>Running late</option><option>Cute dogs</option><option>FOMO</option><option>Awkward silence</option><option>One more episode</option><option>Slow Wi-Fi</option></select></label>
+    <label>Attack idea<select id="pokemonAttackPreset"><option>Yap Attack</option><option>Delulu Shield</option><option>Organized Chaos</option><option>Side Eye</option><option>Rice Bowl Reset</option><option>Lore Drop</option><option>Laughing Fit</option><option>Weaponized Charm</option><option>Power Nap</option><option>Receipts Ready</option><option>Trust Me, I Know a Spot</option><option>Selective Hearing</option><option>Matcha Boost</option><option selected>Side Quest</option><option>Double Text</option><option>Irish Goodbye</option><option>Spiral Session</option><option>Pep Talk</option><option>One Last Reel</option><option>Happy Dance</option><option>Custom</option></select></label>
+    <label id="customAttackName" class="hidden">Attack name<input id="pokemonAttack" maxlength="30" value="Side Quest"></label>
+    <label>Attack damage<input id="pokemonDamage" type="number" min="0" max="999" value="60"></label>
+    <label class="wide">Attack description<input id="pokemonDescription" maxlength="90" value="Wander off the plan. Find unexpected little joys along the way."></label>
+    <label>Weakness<select id="pokemonWeakness"><option>None</option><option>Overthinking</option><option>Low social battery</option><option>Sleep deprivation</option><option>Small talk</option><option>Monday mornings</option><option selected>Being hangry</option><option>Unread messages</option><option>Decision fatigue</option><option>Running late</option><option>Cute dogs</option><option>FOMO</option><option>Awkward silence</option><option>One more episode</option><option>Slow Wi-Fi</option><option>Doomscrolling</option></select></label>
     <label>Resistance drink<select id="pokemonResistance"><option>None</option><option>Coffee</option><option>Chai</option><option selected>Matcha</option><option>Water</option><option>Iced latte</option><option>Cold brew</option><option>Bubble tea</option><option>Hot chocolate</option><option>Lemonade</option><option>Sparkling water</option><option>Coconut water</option><option>Smoothie</option><option>Orange juice</option><option>Mocktail</option><option>Margarita</option><option>Wine</option><option>Beer</option></select></label>
-    <label>Retreat cost<select id="pokemonRetreat"><option>0</option><option selected>1</option><option>2</option><option>3</option><option>4</option></select></label>
+    <label>Retreat cost<select id="pokemonRetreat"><option value="0">0 — Already in the Uber</option><option value="1" selected>1 — Let me say bye</option><option value="2">2 — After this song</option><option value="3">3 — Who said we’re leaving?</option><option value="4">4 — I live here now</option></select></label>
 
   </div>
 
@@ -199,9 +199,8 @@
     <label>Your name<input id="birdName" maxlength="26" value="Jheel"></label>
     <label class="wide inline-field">Habitat<select id="humanHabitat"><option>Cities</option><option>Mountains</option><option>Beaches</option><option>Rivers</option><option>Forests</option><option>Lakes</option><option>Countryside</option><option>Deserts</option><option>Islands</option><option>Parks</option><option>Cozy homes</option><option>Coffee shops</option></select></label>
     <label class="wide inline-field">Food<select id="humanFood"><option selected>Rice bowls</option><option>Birthday cake</option><option>Pizza</option><option>Sushi</option><option>Tacos</option><option>Pasta</option><option>Biryani</option><option>Dumplings</option><option>Noodles</option><option>Burgers</option><option>Fries</option><option>Ice cream</option><option>Chocolate</option><option>Chaat</option><option>Dosa</option><option>Pani puri</option><option>Ramen</option><option>Salad</option><option>Fruit</option></select></label>
-    <label>Social energy (%)<input id="birdSpan" type="number" min="1" max="100" value="85"></label>
-    <label>Party role<select id="birdHabitat"><option>Social butterfly</option><option>Dance-floor legend</option><option>Snack enthusiast</option><option>Memory maker</option><option>Cozy companion</option><option selected>Hype human</option><option>Playlist curator</option><option>Cake connoisseur</option><option>Adventure buddy</option><option>Storyteller</option><option>Karaoke superstar</option><option>Game-night champion</option><option>Photo booth pro</option><option>Pun specialist</option><option>Thoughtful listener</option><option>Confetti captain</option><option>Outfit icon</option><option>Midnight philosopher</option><option>Group hug initiator</option><option>Surprise planner</option></select></label>
-    <label>Joy points<input id="birdPoints" type="number" min="0" max="99" value="10"></label>
+    <label>Party role<select id="birdHabitat"><option>Social butterfly</option><option>Dance-floor legend</option><option>Snack enthusiast</option><option>Memory maker</option><option>Cozy companion</option><option>Hype human</option><option selected>Experience curator</option><option>Playlist curator</option><option>Cake connoisseur</option><option>Adventure buddy</option><option>Storyteller</option><option>Karaoke superstar</option><option>Game-night champion</option><option>Photo booth pro</option><option>Pun specialist</option><option>Thoughtful listener</option><option>Confetti captain</option><option>Outfit icon</option><option>Midnight philosopher</option><option>Group hug initiator</option><option>Surprise planner</option></select></label>
+    <label>Vibe<select id="birdPoints"><option value="Free spirit">Free spirit — follows curiosity, skips the itinerary</option><option value="Secret softie">Secret softie — tough exterior, tender heart</option><option value="Chaotic good">Chaotic good — good intentions, unpredictable plans</option><option value="Straight shooter">Straight shooter — honest, direct, no guessing games</option><option value="Wildcard">Wildcard — full of delightful surprises</option><option value="Black cat" selected>Black cat — independent and selectively social</option><option value="Daydreamer">Daydreamer — imagination always wandering</option><option value="Golden retriever">Golden retriever — enthusiastic and loyal</option><option value="Quiet storm">Quiet storm — calm presence, strong opinions</option><option value="Playful menace">Playful menace — harmless mischief and inside jokes</option><option value="Cozy soul">Cozy soul — comfort, snacks, and familiar faces</option><option value="Plot twist">Plot twist — never quite what you expect</option><option value="Curious mind">Curious mind — always one question away from a rabbit hole</option><option value="Night owl">Night owl — best ideas arrive after dark</option><option value="Adventure buddy">Adventure buddy — turns a regular day into a story</option></select></label>
     <label class="wide">Your little talent<input id="birdAbility" maxlength="110" value="Always knows where to get good food."></label>
   </div>
 
@@ -218,9 +217,10 @@
 
   <div class="buttons">
     <div class="row">
-      <label class="btn primary big" id="pickBtn" for="fileInput" role="button" tabindex="0" aria-describedby="photoHelp">🖼️ Photos</label>
+      <label class="btn primary big" id="pickBtn" for="fileInput" role="button" tabindex="0" aria-describedby="photoHelp photoPrivacy">🖼️ Photos</label>
     </div>
     <p id="photoHelp" style="margin: 0; text-align: center; font-size: 14px; opacity: .85;">Send your pictures through AirDrop, then select them from Photos.</p>
+    <p id="photoPrivacy" style="margin: 0; text-align: center; font-size: 13px; opacity: .75;">Your photo stays on this device.</p>
     <div class="row hidden" id="exportRow">
       <button class="btn primary" id="downloadBtn">⬇️ Download card</button>
       <button class="btn secondary hidden" id="shareBtn">📤 Share</button>
@@ -236,7 +236,7 @@
 
   <input type="file" id="fileInput" accept="image/*">
 
-  <footer>Prints as 2.1 × 3.4 in · made with love 💛</footer>
+  <footer>Prints as 2.1 × 3.4 in · Made with love by Harsh and Jheel 💛</footer>
 </main>
 
 <script>
@@ -371,16 +371,45 @@
   const PIN = new Path2D('M50 96C50 96 16 60 16 38A34 34 0 0 1 84 38C84 60 50 96 50 96ZM50 24A14 14 0 1 0 50 52A14 14 0 1 0 50 24Z');
 
   function drawBird(c, x, y, k, perch = true) {
-    c.save();
-    c.translate(x, y);
-    c.scale(k, k);
-    const plumage = BIRDS[bird];
-    c.fillStyle = plumage.teal; c.fill(BIRD_BODY);
-    if (bird === 'Cardinal') { c.beginPath(); c.moveTo(22,23); c.lineTo(29,8); c.lineTo(39,23); c.fill(); }
-    c.fillStyle = plumage.deep; c.fill(BIRD_WING);
-    c.fillStyle = plumage.orange; c.fill(BIRD_BREAST);
-    c.fillStyle = '#1c2b2a'; c.beginPath(); c.arc(29, 27, 2.6, 0, Math.PI * 2); c.fill();
-    if (perch) { c.strokeStyle = WING.brown; c.lineWidth = 3; c.lineCap = 'round'; c.stroke(BIRD_PERCH); }
+    c.save(); c.translate(x,y); c.scale(k,k);
+    const p=BIRDS[bird];
+    const path=(d,color) => { c.fillStyle=color; c.fill(new Path2D(d)); };
+    const oval=(x,y,rx,ry,color) => { c.fillStyle=color; c.beginPath(); c.ellipse(x,y,rx,ry,0,0,Math.PI*2); c.fill(); };
+    let eye=[29,27];
+    if(bird==='Flamingo') {
+      path('M47 58C32 46 33 38 43 28C52 18 43 12 37 17C29 23 33 29 38 30L31 34C19 24 27 7 39 8C63 10 54 29 47 35C40 42 45 46 53 48Z',p.teal);
+      oval(60,56,24,13,p.teal); oval(65,55,15,8,p.deep);
+      path('M29 23L20 27L29 32L34 27Z','#393c3b');
+      path('M56 67L55 91L49 91L50 94L58 94L60 68M67 68L78 79L69 90L72 93L83 79L71 65',p.deep); eye=[35,20];
+    } else if(bird==='Peacock') {
+      for(let i=0;i<7;i++) { const angle=(i-3)*.26; const tx=67+Math.sin(angle)*28,ty=31-Math.cos(angle)*20; oval(tx,ty,9,19,'#599773'); oval(tx,ty-7,4,6,'#d8b660'); oval(tx,ty-7,2,3,'#3b5885'); }
+      oval(56,57,22,14,p.teal); path('M40 56C30 45 39 33 33 24L40 20C48 32 40 40 49 49Z',p.teal); oval(35,22,9,8,p.teal);
+      path('M26 23L16 27L28 28Z','#ba9754'); path('M33 15L30 5L33 4L37 15M37 14L39 5L42 6L40 16',p.deep); eye=[32,21];
+    } else if(bird==='Hummingbird') {
+      path('M43 44Q40 13 71 3Q67 30 50 46M49 48Q71 29 87 33Q72 49 51 54',p.deep);
+      oval(44,51,17,10,p.teal); oval(31,43,9,9,p.teal);
+      path('M24 40L0 36L24 44M58 51L87 60L72 64L56 57',p.deep); oval(32,49,5,4,'#cb8393'); eye=[29,41];
+    } else if(bird==='Parrot') {
+      oval(47,49,19,26,p.teal); oval(39,27,15,14,p.teal); oval(53,49,10,20,p.deep);
+      path('M45 67L63 97L67 77L59 58',p.teal); path('M27 22C7 22 13 42 25 39L23 31L31 29Z','#e0ad50'); oval(34,27,5,6,'#efe8c7'); eye=[34,26];
+    } else if(bird==='Swallow') {
+      path('M38 44Q47 13 78 7L60 42L96 46L66 55L97 81L70 73L82 94L52 62Q25 66 24 46Z',p.teal);
+      path('M39 47L63 26L55 48L72 52L47 57Z',p.deep); oval(30,44,10,8,p.teal); path('M22 42L8 44L23 47Z','#45423a'); oval(32,49,6,4,p.orange); eye=[27,42];
+    } else {
+      c.fillStyle=p.teal; c.fill(BIRD_BODY);
+      c.fillStyle=p.deep; c.fill(BIRD_WING);
+      c.fillStyle=p.orange; c.fill(BIRD_BREAST);
+      if(bird==='Cardinal') { path('M22 23L30 7L40 24Z',p.teal); path('M21 26Q29 21 34 31L28 39L21 33Z','#3c3338'); path('M20 29L7 33L21 37Z','#df9343'); }
+      if(bird==='Raven') { path('M23 26L1 28L3 35L22 38M78 52L99 63L91 70L71 58',p.deep); path('M27 39L29 48L34 43L37 49L41 39',p.deep); }
+      if(bird==='Goldfinch') { path('M22 22Q29 14 38 22L36 26L24 26Z','#30353a'); path('M48 42L75 51L72 54L46 46Z','#eee7cf'); }
+      if(bird==='Dove') { path('M72 51L98 66L91 75L65 59',p.teal); path('M7 33L21 30L21 36Z','#c29982'); oval(34,44,7,10,'#ded7c8'); }
+      if(bird==='Kingfisher') { path('M22 29L0 29L21 35M24 22L25 13L29 17L33 11L40 23',p.deep); path('M30 35L40 33L43 40L34 44Z','#f1e9d8'); }
+      if(bird==='Blue jay') { path('M21 24L30 9L42 26Z',p.teal); path('M22 30Q28 25 34 31L39 39L35 42L29 35L23 35Z','#26374b'); path('M29 40Q31 55 49 60L45 65Q27 61 24 46Z','#f0f1ed'); path('M49 43L70 49L68 52L47 47M54 50L77 55L74 58L52 54','#e7edf2'); path('M78 54L98 65L95 71L74 60',p.deep); }
+      if(bird==='Bluebird') { path('M25 49Q31 62 49 63L51 67Q30 66 25 55Z','#efe5ce'); }
+      if(bird==='Robin') { oval(32,45,8,10,p.orange); }
+    }
+    oval(eye[0],eye[1],2.3,2.3,'#263230'); oval(eye[0]-.6,eye[1]-.7,.7,.7,'#fff');
+    if(perch && !['Flamingo','Hummingbird','Swallow'].includes(bird)) { c.strokeStyle='#796b52'; c.lineWidth=2.5; c.lineCap='round'; c.stroke(BIRD_PERCH); }
     c.restore();
   }
   function drawEgg(c, cx, cy, r, color) {
@@ -443,6 +472,7 @@
 
   const SIGNS = { Aries: '♈︎', Taurus: '♉︎', Gemini: '♊︎', Cancer: '♋︎', Leo: '♌︎', Virgo: '♍︎', Libra: '♎︎', Scorpio: '♏︎', Sagittarius: '♐︎', Capricorn: '♑︎', Aquarius: '♒︎', Pisces: '♓︎' };
   const BIRDS = {
+    'Blue jay': { teal: '#6c9dce', deep: '#345b91', orange: '#e6eaf0' },
     Robin: { teal: '#788276', deep: '#50594f', orange: '#dc763b' },
     Bluebird: { teal: '#5c9bcd', deep: '#30689a', orange: '#db9d68' },
     Cardinal: { teal: '#cb4848', deep: '#8c2937', orange: '#e8744b' },
@@ -457,7 +487,7 @@
     Swallow: { teal: '#617d9e', deep: '#334d6c', orange: '#dfc5ad' },
   };
   const POKEMON = { Pikachu: { color: '#f4d34e' }, Bulbasaur: { color: '#85cbb0' }, Squirtle: { color: '#81c7db' } };
-  let sign = 'Libra', bird = 'Robin', monster = 'Pikachu';
+  let sign = 'Libra', bird = 'Blue jay', monster = 'Pikachu';
   const NIGHT = { light: '#4a2c6e', dark: '#1f1747', gold: '#f5c96a' };
   const WING = { paper: '#f4ecd8', teal: '#3f8f8a', deep: '#2a6b67', orange: '#e9a23b', brown: '#6b5238', eggs: ['#b9dccf', '#f3d9a4', '#e7b9a6', '#cfd8ee'] };
 
@@ -500,7 +530,7 @@
       icon: (c, cx, cy, h) => drawZodiac(c, cx - h * 0.55, cy - h * 0.6, h / 100 * 1.1, NIGHT.gold),
     },
     wingspan: {
-      title: () => '🪶 ' + (document.getElementById('birdName').value.trim() || 'Jheel') + ' Card',
+      title: () => '🪶 ' + (document.getElementById('birdName').value.trim() || 'Jheel') + '’s Birthday Flock',
       file: () => 'wingspan-' + (document.getElementById('birdName').value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-') || bird.toLowerCase()),
       accent: () => WING.brown,
       border: () => WING.paper,
@@ -674,6 +704,21 @@
     else { c.arc(16,10,6,0,Math.PI*2); c.moveTo(4,29); c.bezierCurveTo(4,13,28,13,28,29); }
     c.stroke(); c.restore();
   }
+  function drawVibeIcon(c,vibe,x,y,size) {
+    vibe = { 'Golden retriever':'Sunshine', 'Black cat':'Cat', 'Chaotic good':'Chaotic', 'Cozy soul':'Cozy', 'Straight shooter':'Adventurous', 'Daydreamer':'Dreamy', 'Free spirit':'Adventurous', 'Playful menace':'Playful', 'Curious mind':'Curious', 'Night owl':'Dreamy', 'Adventure buddy':'Adventurous', 'Quiet storm':'Calm', 'Pocket sunshine':'Sunshine', 'Plot twist':'Chaotic', 'Secret softie':'Thoughtful', 'Curious creature':'Curious', 'Moon child':'Dreamy', 'Wanderlust':'Adventurous', 'Deadpan darling':'Playful', 'Comfort character':'Cozy', 'Whimsical':'Dreamy', 'Low-key legend':'Cat', 'Wildcard':'Chaotic' }[vibe] || vibe;
+    c.save(); c.translate(x,y); c.scale(size/32,size/32); c.strokeStyle='#6d7d68'; c.lineWidth=1.8; c.lineCap='round'; c.lineJoin='round'; c.beginPath();
+    if(vibe==='Sunshine') { c.arc(16,16,7,0,Math.PI*2); for(let i=0;i<8;i++) { const a=i*Math.PI/4; c.moveTo(16+Math.cos(a)*11,16+Math.sin(a)*11); c.lineTo(16+Math.cos(a)*15,16+Math.sin(a)*15); } }
+    else if(vibe==='Cat') { c.moveTo(5,15); c.lineTo(5,3); c.lineTo(13,9); c.quadraticCurveTo(16,7,20,9); c.lineTo(28,3); c.lineTo(27,16); c.bezierCurveTo(30,32,2,32,5,15); c.moveTo(10,17); c.lineTo(12,17); c.moveTo(21,17); c.lineTo(23,17); c.moveTo(15,21); c.lineTo(17,21); }
+    else if(vibe==='Playful') { c.arc(16,16,12,0,Math.PI*2); c.moveTo(9,12); c.lineTo(12,12); c.moveTo(20,11); c.lineTo(20,13); c.moveTo(10,19); c.quadraticCurveTo(16,27,23,18); }
+    else if(vibe==='Cozy') { c.moveTo(5,12); c.lineTo(23,12); c.lineTo(23,23); c.quadraticCurveTo(14,30,5,23); c.closePath(); c.moveTo(23,14); c.bezierCurveTo(33,10,33,25,23,21); c.moveTo(10,8); c.quadraticCurveTo(7,5,11,2); c.moveTo(18,8); c.quadraticCurveTo(15,5,19,2); }
+    else if(vibe==='Calm') { c.moveTo(3,12); c.bezierCurveTo(9,4,15,20,22,12); c.quadraticCurveTo(27,6,30,11); c.moveTo(3,23); c.bezierCurveTo(9,15,15,31,22,23); c.quadraticCurveTo(27,17,30,22); }
+    else if(vibe==='Curious') { c.arc(13,13,9,0,Math.PI*2); c.moveTo(20,20); c.lineTo(29,29); c.moveTo(10,11); c.quadraticCurveTo(13,6,16,11); c.quadraticCurveTo(16,13,13,14); c.moveTo(13,17); c.lineTo(13,17.5); }
+    else if(vibe==='Chaotic') { c.moveTo(19,2); c.lineTo(6,18); c.lineTo(15,18); c.lineTo(11,30); c.lineTo(27,12); c.lineTo(18,12); c.closePath(); }
+    else if(vibe==='Thoughtful') { c.moveTo(16,27); c.bezierCurveTo(1,17,1,8,8,6); c.bezierCurveTo(12,5,15,8,16,11); c.bezierCurveTo(18,4,28,4,29,12); c.bezierCurveTo(30,18,20,25,16,27); }
+    else if(vibe==='Adventurous') { c.arc(16,16,13,0,Math.PI*2); c.moveTo(21,9); c.lineTo(18,19); c.lineTo(10,23); c.lineTo(13,13); c.closePath(); }
+    else { c.moveTo(23,3); c.bezierCurveTo(2,0,1,28,22,28); c.bezierCurveTo(9,21,10,9,23,3); c.moveTo(26,10); c.lineTo(26,18); c.moveTo(22,14); c.lineTo(30,14); }
+    c.stroke(); c.restore();
+  }
   function renderWingspanCard(c) {
     const value = id => document.getElementById(id).value.trim();
     const ink='#344036', muted='#7b8070', rule='#d4d2c0';
@@ -684,18 +729,17 @@
     c.fillStyle=ink; c.font='bold 43px Palatino, "Book Antiqua", Georgia, serif'; c.fillText(value('birdName') || 'Jheel',42,104,535);
     c.fillStyle=muted; c.font='22px Arial'; c.fillText(value('birdHabitat'),44,148,530);
     c.strokeStyle=rule; c.beginPath(); c.moveTo(44,181); c.lineTo(586,181); c.stroke();
-    const points=Math.min(99,Math.max(0,Number(value('birdPoints')) || 0));
-    const energy=Math.min(100,Math.max(1,Number(value('birdSpan')) || 1));
+    const vibe=value('birdPoints') || 'Black cat';
     // Each stat has one icon and one value, aligned in a quiet left column.
     const stat=(kind,label,text,y) => {
       c.fillStyle=muted; c.font='600 15px Arial'; c.fillText(label,44,y);
-      drawHumanIcon(c,kind,43,y+20,28);
-      c.fillStyle=ink; c.font='22px Arial'; c.fillText(text,81,y+35,130);
+      if(kind==='vibe') drawVibeIcon(c,vibe,43,y+20,28);
+      else drawHumanIcon(c,kind,43,y+20,28);
+      c.fillStyle=ink; c.font=(text.length>12 ? '20px Arial' : '22px Arial'); c.fillText(text,81,y+35,145);
     };
-    stat('habitat','HABITAT',value('humanHabitat') || 'Cities',235);
-    stat('food','FAVORITE FOOD',value('humanFood') || 'Rice bowls',350);
-    stat('joy','JOY POINTS',String(points),465);
-    stat('energy','SOCIAL ENERGY',energy+'%',580);
+    stat('habitat','HABITAT',value('humanHabitat') || 'Cities',255);
+    stat('food','FAVORITE FOOD',value('humanFood') || 'Rice bowls',410);
+    stat('vibe','VIBE',vibe,565);
     const box={x:236,y:211,w:350,h:451};
     c.save(); c.beginPath(); c.rect(box.x,box.y,box.w,box.h); c.clip();
     if(photo) {
@@ -709,6 +753,7 @@
       c.textAlign='center'; c.fillStyle='#71816a'; c.font='22px Arial'; c.fillText('Your photo',411,506);
     }
     c.restore();
+    drawBird(c,239,650,0.77,false);
     c.fillStyle=muted; c.font='16px Arial'; c.textAlign='right'; c.fillText(bird+' spirit',584,690);
     c.fillStyle='#e3dfcb'; c.fillRect(35,727,560,191);
     c.fillStyle='#697a60'; c.fillRect(35,727,560,42);
@@ -717,7 +762,7 @@
     (value('birdAbility') || 'Always knows where to get good food.').split(/\s+/).forEach(word => {
       const next=line+word+' '; if(c.measureText(next).width>520 && line) { c.fillText(line,53,y); line=word+' '; y+=33; } else line=next;
     }); c.fillText(line,53,y);
-    c.textAlign='center'; c.fillStyle=muted; c.font='18px Arial'; c.fillText('A rare human. A familiar face. One of a kind.',315,949);
+    c.textAlign='center'; c.fillStyle=muted; c.font='18px Arial'; c.fillText('A rare human. One of a kind.',315,949);
     c.font='16px Arial'; c.fillText("Jheel’s Birthday 2026 • Golden Gate Park",315,978);
     c.restore();
   }
@@ -758,10 +803,10 @@
     c.restore();
     c.fillStyle='#dfc88c'; c.fillRect(43,654,544,31); c.textAlign='center'; c.fillStyle='#514735'; c.font='italic 17px Arial'; c.fillText('NO. 001  •  ' + type + ' Pokémon  •  Birthday edition',W/2,670);
     drawEnergy(c,64,737,16,type); drawEnergy(c,102,737,16,'Normal');
-    c.textAlign='left'; c.font='bold 29px Arial'; c.fillText(value('pokemonAttack') || 'Pep Talk',137,742,370);
+    c.textAlign='left'; c.font='bold 29px Arial'; c.fillText(value('pokemonAttack') || 'Side Quest',137,742,370);
     c.textAlign='right'; c.fillText(String(Math.min(999,Math.max(0,Number(value('pokemonDamage')) || 0))),580,742);
     c.textAlign='left'; c.font='21px Arial';
-    const words=(value('pokemonDescription') || 'Give a friend a confidence boost. Both of you recover 30 energy.').split(/\s+/); let line='', y=786;
+    const words=(value('pokemonDescription') || 'Wander off the plan. Find unexpected little joys along the way.').split(/\s+/); let line='', y=786;
     words.forEach(word => { const next=line+word+' '; if(c.measureText(next).width>510 && line) { c.fillText(line,49,y); line=word+' '; y+=28; } else line=next; });
     c.fillText(line,49,y);
     c.strokeStyle='rgba(70,53,30,.4)'; c.lineWidth=2; c.beginPath(); c.moveTo(44,875); c.lineTo(586,875); c.stroke();
@@ -777,18 +822,16 @@
     c.font='15px Arial'; c.fillText('A one-of-a-kind birthday Pokémon • 001 / 001 ★',W/2,980);
     c.restore();
   }
-  const ATTACK_IDEAS = {"Pep Talk": ["Give a friend a confidence boost. Both of you recover 30 energy.", 30], "Overthink": ["Consider every possible outcome. Your opponent waits one extra turn.", 60], "Social Recharge": ["Take a quiet moment. Restore 40 energy before your next big entrance.", 40], "Snack Break": ["Find your favorite snack. Restore 30 energy and remove the hangry effect.", 30], "Power Nap": ["Skip one turn. Wake up with 60 extra energy and a much better attitude.", 60], "Happy Dance": ["Dance like nobody is watching. Everyone nearby gains 20 joy.", 50], "Group Hug": ["Gather your favorite people. Each friend restores 20 energy.", 40], "Inside Joke": ["Only your closest friends understand. Deal 70 laughter damage.", 70], "Plot Twist": ["Change the plan at the last minute. Draw two cards and keep the adventure going.", 60], "Main Character": ["Make a dramatic entrance. Gain 80 confidence and take the spotlight.", 80], "One More Song": ["Keep the dance floor alive. Your next attack gains 20 extra damage.", 50], "Good Vibes": ["Turn the mood around. Clear one bad day effect from every friend.", 40]};
+  const ATTACK_IDEAS = {"Yap Attack": ["One story becomes three. Your opponent forgets whose turn it is.", 50], "Delulu Shield": ["Stay blissfully unbothered. Block all damage until reality checks in.", 0], "Organized Chaos": ["Rewrite the plan. Somehow, it becomes everyone’s favorite memory.", 70], "Side Eye": ["Say everything without saying a word. The look alone deals 50 damage.", 50], "Rice Bowl Reset": ["A good rice bowl makes everything better. Restore 50 energy.", 50], "Lore Drop": ["Reveal a little backstory. Your opponent needs a moment to process.", 60], "Laughing Fit": ["One look sets you both off. Skip a turn while you catch your breath.", 40], "Weaponized Charm": ["Ask with a smile. Your opponent forgets they were going to say no.", 70], "Power Nap": ["Disappear under a blanket. Return one turn later with 60 extra energy.", 60], "Receipts Ready": ["You kept the screenshot. Let the evidence do the talking.", 90], "Trust Me, I Know a Spot": ["Take the scenic detour. Good food at the finish restores 50 energy.", 50], "Selective Hearing": ["That sounds like a tomorrow problem. Ignore the next incoming attack.", 0], "Matcha Boost": ["A little green magic. Your next attack gains 30 extra damage.", 40], "Side Quest": ["Wander off the plan. Find unexpected little joys along the way.", 60], "Double Text": ["A little persistence goes a long way. No reply? Take another turn.", 40], "Irish Goodbye": ["Leave on a high note. Slip away without paying a retreat cost.", 0], "Spiral Session": ["One tiny detail. Five possible scenarios. Your opponent loses the plot.", 50], "Pep Talk": ["Remind a friend who they are. You both recover 30 energy.", 30], "One Last Reel": ["Just one more. Your opponent falls into the scroll and skips a turn.", 60], "Happy Dance": ["Let the good mood move you. Everyone nearby gains 20 joy.", 50]};
   document.getElementById('pokemonAttackPreset').addEventListener('change', event => {
     const idea = ATTACK_IDEAS[event.target.value];
+    document.getElementById('customAttackName').classList.toggle('hidden', event.target.value !== 'Custom');
     if (!idea) { document.getElementById('pokemonAttack').focus(); return; }
     document.getElementById('pokemonAttack').value = event.target.value;
     document.getElementById('pokemonDescription').value = idea[0];
     document.getElementById('pokemonDamage').value = idea[1];
     render();
   });
-  ['pokemonAttack','pokemonDescription','pokemonDamage'].forEach(id => document.getElementById(id).addEventListener('input', () => {
-    document.getElementById('pokemonAttackPreset').value = 'Custom';
-  }));
   document.querySelectorAll('#pokemonFields input, #pokemonFields select').forEach(input => input.addEventListener('input', () => { refreshTitle(); render(); }));
 
   function render() {
@@ -849,8 +892,11 @@
   function refreshTitle() {
     title.textContent = THEMES[theme].title();
     document.querySelector('[data-theme="zodiac"] .ico').textContent = SIGNS[sign];
-    const plumage = BIRDS[bird];
-    document.querySelector('[data-theme="wingspan"] .ico').innerHTML = `<svg viewBox="0 0 100 100" aria-hidden="true"><path fill="${plumage.teal}" d="M6 35L19 30C21 22 28 18 34 19C41 20 45 26 47 31C56 33 66 38 76 45L97 55L95 60L80 58C74 63 64 66 54 66C42 66 30 61 24 52C22 46 22 41 20 38L6 36Z"/><path fill="${plumage.orange}" d="M27 40C31 50 40 58 52 60C42 63 31 59 26 51C24 47 24 43 27 40Z"/>${bird === 'Cardinal' ? `<path fill="${plumage.teal}" d="M22 23L29 8L39 23Z"/>` : ''}</svg>`;
+    const birdIcon=document.createElement('canvas'); birdIcon.width=100; birdIcon.height=100;
+    drawBird(birdIcon.getContext('2d'),0,0,1,false);
+    const birdImage=document.createElement('img'); birdImage.src=birdIcon.toDataURL(); birdImage.alt=bird;
+    birdImage.style.width='24px'; birdImage.style.height='24px';
+    document.querySelector('[data-theme="wingspan"] .ico').replaceChildren(birdImage);
     const type = document.getElementById('pokemonType').value;
     const symbols = { Electric:'ϟ', Fire:'▲', Water:'●', Grass:'♣', Psychic:'◉', Fighting:'◆', Dark:'☾', Fairy:'✦', Dragon:'✶', Normal:'★' };
     const pokemonIcon = document.querySelector('[data-theme="pokemon"] .ico');
