@@ -225,6 +225,7 @@
       <button class="btn primary" id="downloadBtn">⬇️ Download card</button>
       <button class="btn secondary hidden" id="shareBtn">📤 Share</button>
     </div>
+    <p id="printHelp" class="hidden" role="status" style="margin: 0; text-align: center; font-size: 14px; line-height: 1.5;">Save the downloaded card to Photos, then open the instax mini Link app, select your card, and print.</p>
   </div>
 
   <div class="suits" role="group" aria-label="Pick a suit">
@@ -1103,6 +1104,7 @@
     a.download = fileName();
     document.body.appendChild(a);
     a.click();
+    document.getElementById('printHelp').classList.remove('hidden');
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 30000);
   });
