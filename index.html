@@ -267,8 +267,7 @@
   let face = 'Queen';
   const FACE_LETTERS = { Queen: 'Q', King: 'K', Jack: 'J', Ace: 'A' };
   let photo = null;            // canvas holding the (possibly downscaled) photo
-  let baseScale = 1;           // scale that makes the photo exactly cover INNER
-  let zoom = 1;                // user zoom on top of baseScale
+  let zoom = 1;                // user zoom on top of proportional cover fit
   let ox = 0, oy = 0;          // photo center offset from INNER center, in card px
 
   // ---------- suit shapes (unit box centered at 0,0, size 1) ----------
@@ -355,12 +354,31 @@
     c.closePath();
   }
 
+  function photoWindow() {
+    if (theme === 'pokemon') return { x: 43, y: 133, w: 544, h: 510 };
+    if (theme === 'wingspan') return { x: 236, y: 211, w: 350, h: 451 };
+    return INNER;
+  }
+  function photoScale() {
+    const box = photoWindow();
+    return Math.max(box.w / photo.width, box.h / photo.height) * zoom;
+  }
+  function drawPhoto(c) {
+    const box = photoWindow(), scale = photoScale();
+    const width = photo.width * scale, height = photo.height * scale;
+    c.imageSmoothingEnabled = true;
+    c.imageSmoothingQuality = 'high';
+    c.drawImage(photo, box.x + box.w / 2 + ox - width / 2,
+      box.y + box.h / 2 + oy - height / 2, width, height);
+  }
+
   function clampOffsets() {
     if (!photo) return;
-    const dw = photo.width * baseScale * zoom;
-    const dh = photo.height * baseScale * zoom;
-    const mx = Math.max(0, (dw - INNER.w) / 2);
-    const my = Math.max(0, (dh - INNER.h) / 2);
+    const box = photoWindow(), scale = photoScale();
+    const dw = photo.width * scale;
+    const dh = photo.height * scale;
+    const mx = Math.max(0, (dw - box.w) / 2);
+    const my = Math.max(0, (dh - box.h) / 2);
     ox = Math.min(mx, Math.max(-mx, ox));
     oy = Math.min(my, Math.max(-my, oy));
   }
@@ -694,7 +712,7 @@
     c.restore();
   }
 
-  // The photo keeps the same cover crop, zoom, and drag coordinates as other styles.
+  // Every style fits photos proportionally inside its own artwork window.
   const TYPE_COLORS = { Electric: '#f5d657', Fire: '#ec9365', Water: '#8ac5e5', Grass: '#a2cf87', Psychic: '#c6a0d9', Fighting: '#cbaa86', Dark: '#929da8', Fairy: '#ebafd1', Dragon: '#b2a0d2', Normal: '#ddd5bc' };
   function drawHumanIcon(c,kind,x,y,size,color='#6d7d68') {
     c.save(); c.translate(x,y); c.scale(size/32,size/32); c.strokeStyle=color; c.lineWidth=1.8; c.lineCap='round'; c.lineJoin='round'; c.beginPath();
@@ -744,9 +762,7 @@
     const box={x:236,y:211,w:350,h:451};
     c.save(); c.beginPath(); c.rect(box.x,box.y,box.w,box.h); c.clip();
     if(photo) {
-      c.translate(box.x,box.y); c.scale(box.w/INNER.w,box.h/INNER.h);
-      const scale=baseScale*zoom;
-      c.drawImage(photo,INNER.w/2+ox-photo.width*scale/2,INNER.h/2+oy-photo.height*scale/2,photo.width*scale,photo.height*scale);
+      drawPhoto(c);
     } else {
       const wash=c.createLinearGradient(box.x,box.y,586,662); wash.addColorStop(0,'#e9eddf'); wash.addColorStop(1,'#dbe3d1');
       c.fillStyle=wash; c.fillRect(box.x,box.y,box.w,box.h);
@@ -792,10 +808,7 @@
     const rim=c.createLinearGradient(0,128,W,648); rim.addColorStop(0,'#b2a47a'); rim.addColorStop(.5,'#fffbe6'); rim.addColorStop(1,'#a89a76'); c.fillStyle=rim; c.fillRect(box.x-7,box.y-7,box.w+14,box.h+14);
     c.save(); c.beginPath(); c.rect(box.x,box.y,box.w,box.h); c.clip();
     if (photo) {
-      // Transform the original full-card crop into the trading card art window.
-      c.translate(box.x,box.y); c.scale(box.w/INNER.w,box.h/INNER.h);
-      const scale=baseScale*zoom;
-      c.drawImage(photo, INNER.w/2+ox-photo.width*scale/2, INNER.h/2+oy-photo.height*scale/2, photo.width*scale,photo.height*scale);
+      drawPhoto(c);
     } else {
       const g=c.createLinearGradient(0,133,W,643); g.addColorStop(0,'#fff9df'); g.addColorStop(1,TYPE_COLORS[type]); c.fillStyle=g; c.fillRect(box.x,box.y,box.w,box.h);
       c.fillStyle='#514735'; c.textAlign='center'; c.font='64px Arial'; c.fillText('✦',W/2,330);
@@ -860,13 +873,7 @@
     c.restore();
     c.clip('evenodd');
     if (photo) {
-      const s = baseScale * zoom;
-      const dw = photo.width * s, dh = photo.height * s;
-      const cx = INNER.x + INNER.w / 2 + ox;
-      const cy = INNER.y + INNER.h / 2 + oy;
-      c.imageSmoothingEnabled = true;
-      c.imageSmoothingQuality = 'high';
-      c.drawImage(photo, cx - dw / 2, cy - dh / 2, dw, dh);
+      drawPhoto(c);
     } else {
       drawPlaceholder(c);
     }
@@ -917,6 +924,7 @@
     if (svg) b.querySelector('.ico').innerHTML = svg;
     b.addEventListener('click', () => {
       theme = b.dataset.theme;
+      clampOffsets();
       themeBtns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
       suitRow.classList.toggle('hidden', theme !== 'queen');
       document.getElementById('faceOptions').classList.toggle('hidden', theme !== 'queen');
@@ -992,7 +1000,6 @@
       p.imageSmoothingQuality = 'high';
       p.drawImage(img, 0, 0, pc.width, pc.height);
       photo = pc;
-      baseScale = Math.max(INNER.w / pc.width, INNER.h / pc.height);
       zoom = 1; ox = 0; oy = 0;
       zoomInput.value = '1';
       canvas.classList.add('has-photo');
@@ -1021,7 +1028,8 @@
   function zoomAt(newZoom, px, py) {
     newZoom = Math.min(4, Math.max(1, newZoom));
     const f = newZoom / zoom;
-    const icx = INNER.x + INNER.w / 2, icy = INNER.y + INNER.h / 2;
+    const box = photoWindow();
+    const icx = box.x + box.w / 2, icy = box.y + box.h / 2;
     ox = (icx + ox - px) * f + px - icx;
     oy = (icy + oy - py) * f + py - icy;
     zoom = newZoom;
@@ -1082,7 +1090,8 @@
   }, { passive: false });
 
   zoomInput.addEventListener('input', () => {
-    zoomAt(parseFloat(zoomInput.value), INNER.x + INNER.w / 2, INNER.y + INNER.h / 2);
+    const box = photoWindow();
+    zoomAt(parseFloat(zoomInput.value), box.x + box.w / 2, box.y + box.h / 2);
   });
 
   // iOS Safari: stop the page from rubber-banding while pinching the card
