@@ -443,12 +443,62 @@
     c.restore();
   }
 
-  function drawZodiac(c, x, y, k, color) {
-    c.save();
-    c.fillStyle = color;
-    c.textAlign = 'center'; c.textBaseline = 'middle';
-    c.font = `${82 * k}px "Arial", "DejaVu Sans", sans-serif`;
-    c.fillText(SIGNS[sign], x + 50 * k, y + 50 * k);
+  const ZODIAC_PATHS = {
+    Aries:'M50 83V40C50 10 14 9 14 35C14 48 26 51 30 42M50 40C50 10 86 9 86 35C86 48 74 51 70 42',
+    Taurus:'M20 13C20 43 80 43 80 13M50 39A24 24 0 1 0 50 87A24 24 0 1 0 50 39',
+    Gemini:'M23 15Q50 27 77 15M23 85Q50 73 77 85M34 21V79M66 21V79',
+    Cancer:'M17 38C40 9 73 13 84 32M32 30A12 12 0 1 0 32 54A12 12 0 1 0 32 30M83 62C60 91 27 87 16 68M68 46A12 12 0 1 0 68 70A12 12 0 1 0 68 46',
+    Leo:'M28 49A15 15 0 1 0 28 79A15 15 0 1 0 28 49M40 51C18 19 49 6 62 22C78 43 39 71 57 84C66 92 82 83 84 70',
+    Virgo:'M16 24V79M16 41C16 20 35 20 35 41V79M35 41C35 20 54 20 54 41V70M54 43C54 17 76 17 76 42V62C76 76 63 83 53 85M54 56L81 82',
+    Libra:'M15 81H85M15 64H34C20 47 31 24 50 24C69 24 80 47 66 64H85',
+    Scorpio:'M14 25V78M14 42C14 20 34 20 34 42V78M34 42C34 20 54 20 54 42V66Q54 80 79 77M71 68L82 77L72 86',
+    Sagittarius:'M20 80L81 19M52 19H81V48M23 46L54 77',
+    Capricorn:'M13 28L26 20L43 76M43 76L56 28C62 10 79 20 73 34C67 48 55 54 57 69C59 87 86 86 86 68C86 51 65 49 54 65',
+    Aquarius:'M12 39L25 27L39 39L52 27L66 39L79 27L89 36M12 69L25 57L39 69L52 57L66 69L79 57L89 66',
+    Pisces:'M23 15Q53 50 23 85M77 15Q47 50 77 85M16 50H84',
+  };
+  function drawZodiac(c,x,y,k,color) {
+    c.save();c.translate(x,y);c.scale(k,k);c.fillStyle=color;c.strokeStyle=color;c.lineWidth=3;c.lineCap='round';c.lineJoin='round';
+    const fill=d=>c.fill(new Path2D(d),'evenodd');
+    const line=d=>c.stroke(new Path2D(d));
+    const oval=(x,y,rx,ry)=>{c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);c.fill();};
+    if(sign==='Aries') {
+      fill('M32 38Q16 12 8 31Q1 59 24 69L31 61Q12 60 13 40Q15 25 26 44L35 57L39 82Q50 96 61 82L65 57L74 44Q85 25 87 40Q88 60 69 61L76 69Q99 59 92 31Q84 12 68 38L61 30L50 34L39 30Z');
+      line('M22 37Q17 48 25 54M78 37Q83 48 75 54');
+    } else if(sign==='Taurus') {
+      fill('M28 38Q8 36 9 9Q18 27 37 23L50 29L63 23Q82 27 91 9Q92 36 72 38L64 69L61 84Q50 94 39 84L36 69ZM32 46L16 40L18 52L36 58ZM68 46L84 40L82 52L64 58Z');
+    } else if(sign==='Gemini') {
+      fill('M9 85Q12 64 27 59L27 49L19 45L22 34Q17 22 27 16Q44 10 48 28L45 39L49 44L42 48L40 61Q48 69 47 85ZM91 85Q88 64 73 59L73 49L81 45L78 34Q83 22 73 16Q56 10 52 28L55 39L51 44L58 48L60 61Q52 69 53 85Z');
+      line('M13 91H87M22 66L34 80M78 66L66 80');
+    } else if(sign==='Cancer') {
+      oval(50,56,26,20);
+      fill('M27 45Q7 39 11 18L22 9L18 26L29 20Q38 29 27 45ZM73 45Q93 39 89 18L78 9L82 26L71 20Q62 29 73 45Z');
+      line('M25 54L10 49L3 55M25 62L9 62L2 71M28 70L15 75L12 86M75 54L90 49L97 55M75 62L91 62L98 71M72 70L85 75L88 86M40 37V30M60 37V30');oval(40,29,3,3);oval(60,29,3,3);
+    } else if(sign==='Leo') {
+      fill('M49 9Q74 10 82 29L77 34Q97 50 82 70L75 66Q75 88 55 93L50 85Q30 99 15 80L22 71Q5 62 15 43L24 48Q16 27 32 17L36 25Z');
+      c.save();c.strokeStyle='#f7e7bd';c.lineWidth=2;line('M41 23Q75 33 64 69M48 21Q84 39 71 66');c.restore();
+      fill('M34 35L49 34L56 43L49 47L45 56L34 54L30 46L21 43L25 36Z');
+    } else if(sign==='Virgo') {
+      oval(57,23,10,11);fill('M58 12Q74 9 77 33Q84 52 96 41Q84 67 62 46L61 35ZM48 37Q54 32 62 38L65 59Q61 70 82 84Q51 99 24 82L39 66L44 47L29 53L18 44L22 38L32 44Z');
+      line('M23 42L18 21M18 25L12 20M18 30L24 24M20 36L13 30');
+    } else if(sign==='Libra') {
+      line('M50 15V84M18 33H82M22 34L9 62H35L22 34M78 34L65 62H91L78 34');
+      fill('M41 85H59L70 91H30ZM7 66Q22 84 37 66ZM63 66Q78 84 93 66ZM50 7L56 18L50 25L44 18Z');
+    } else if(sign==='Scorpio') {
+      oval(50,49,13,23);fill('M40 29Q15 35 18 16L12 8Q2 31 24 38L38 39ZM60 29Q85 35 82 16L88 8Q98 31 76 38L62 39Z');
+      line('M38 39L23 42L17 50M37 49L20 53L14 62M39 59L24 65L20 75M62 39L77 42L83 50M63 49L80 53L86 62M61 59L76 65L80 75M50 69C33 79 47 96 63 86C77 77 64 69 61 77');fill('M61 77L56 69L71 73Z');
+    } else if(sign==='Sagittarius') {
+      line('M22 80L81 20M26 15Q88 48 65 88M26 15L65 88M23 77L36 91M17 72L30 86');fill('M83 12L60 22L70 28L75 38Z');
+    } else if(sign==='Capricorn') {
+      fill('M34 43L26 28Q11 25 14 12Q22 21 33 19L44 29L51 26L61 40L55 58Q73 55 83 65Q99 82 75 94Q51 103 47 83Q47 70 63 70Q78 72 67 82Q81 83 77 73Q66 63 49 75L36 62L33 78L24 69L27 53L13 47L17 37Z');
+      line('M46 28Q54 4 68 10Q79 14 74 26');
+    } else if(sign==='Aquarius') {
+      fill('M46 17L73 24L80 57Q63 72 39 58L32 33ZM38 26Q16 13 14 35Q14 51 32 45L34 38Q21 46 21 34Q21 22 36 34Z');
+      line('M35 54C15 68 43 69 25 87M46 62C29 75 57 80 39 94M58 65C42 79 70 84 53 96');
+    } else if(sign==='Pisces') {
+      fill('M16 27Q43 9 69 29L82 16L82 45L69 36Q46 52 16 27ZM84 73Q57 91 31 71L18 84L18 55L31 64Q54 48 84 73Z');
+      line('M43 39Q25 46 31 59M57 61Q75 54 69 41');
+    }
     c.restore();
   }
   function drawPokemon(c, x, y, k) {
@@ -538,7 +588,7 @@
       placeholder: ['#e4dcfa', '#f6e2b3'],
       bigIcon(c) { drawZodiac(c, W / 2 - 150, H / 2 - 260, 3, NIGHT.light + '40'); },
       tab(c) {
-        drawZodiac(c, TAB_CX - 50 * 1.1, 22, 1.1, NIGHT.gold);
+        drawZodiac(c, TAB_CX - 40, 33, 0.8, NIGHT.gold);
         drawSparkle(c, TAB_CX, 158, 20, NIGHT.gold);
         drawSparkle(c, TAB_CX + 26, 132, 8, NIGHT.gold);
       },
@@ -784,11 +834,35 @@
     c.restore();
   }
   document.querySelectorAll('#birdFields input, #birdFields select').forEach(input => input.addEventListener('input', () => { refreshTitle(); render(); }));
+  const ENERGY_PATHS = {
+    Electric:'M57 10L28 54H49L41 90L75 42H53Z',
+    Fire:'M51 10C62 35 76 36 75 58C84 88 28 100 25 66C23 47 40 39 35 25C46 31 48 39 47 47C60 36 51 23 51 10ZM51 59C50 68 39 70 42 79C47 88 62 80 59 71Z',
+    Water:'M50 10C42 27 24 43 24 61C24 97 77 97 77 61C77 43 59 25 50 10ZM38 53C30 65 34 77 43 79C39 70 40 63 44 57Z',
+    Grass:'M76 16C44 14 18 35 23 60C26 80 43 85 61 72C79 58 82 35 76 16ZM27 78L67 30L38 62Z',
+    Psychic:'M8 50C31 16 69 16 92 50C69 84 31 84 8 50ZM50 31A19 19 0 1 0 50 69A19 19 0 1 0 50 31ZM50 39A11 11 0 1 1 50 61A11 11 0 1 1 50 39Z',
+    Fighting:'M28 75L20 58V40Q20 31 29 34V25Q29 16 38 21Q39 10 48 17Q54 10 62 20Q73 15 77 27L82 51L73 72L65 86H37ZM29 38V53H35V34ZM43 27V49H49V25ZM57 25V47H63V29Z',
+    Dark:'M73 18C29 3 7 65 49 84C66 93 85 83 91 69C55 82 35 42 73 18Z',
+    Fairy:'M50 17C58 29 59 36 55 43C67 28 82 30 82 39C82 52 65 58 59 56L68 78L50 68L32 78L41 56C35 58 18 52 18 39C18 30 33 28 45 43C41 36 42 29 50 17ZM50 45L44 55L50 61L56 55Z',
+    Dragon:'M77 13L55 22L37 15L41 31L23 46L38 48L29 64L48 60L40 87L59 74L64 57L77 48L68 37L82 31L68 28ZM51 31L59 32L55 38Z',
+    Normal:'M50 11L60 34L86 28L70 50L86 72L60 66L50 89L40 66L14 72L30 50L14 28L40 34Z',
+  };
   function drawEnergy(c,x,y,r,type) {
-    const symbols={Electric:'ϟ',Fire:'▲',Water:'●',Grass:'♣',Psychic:'◉',Fighting:'◆',Dark:'☾',Fairy:'✦',Dragon:'✶',Normal:'★'};
-    c.save(); c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fillStyle=TYPE_COLORS[type]; c.fill(); c.strokeStyle='#695e4a'; c.lineWidth=1.5; c.stroke();
-    c.fillStyle='#302e2a'; c.textAlign='center'; c.textBaseline='middle'; c.font=`bold ${r*1.5}px Arial`; c.fillText(symbols[type] || '★',x,y+1); c.restore();
+    c.save(); c.translate(x,y); c.beginPath(); c.arc(0,0,r,0,Math.PI*2);
+    c.fillStyle=TYPE_COLORS[type] || '#ddd5bc'; c.fill(); c.strokeStyle='#695e4a'; c.lineWidth=1.1; c.stroke();
+    c.translate(-r*.8,-r*.8);c.scale(r*1.6/100,r*1.6/100);
+    c.fillStyle=type==='Dark' ? '#172d3b' : '#242728';
+    c.fill(new Path2D(ENERGY_PATHS[type] || ENERGY_PATHS.Normal),'evenodd'); c.restore();
   }
+  function randomPokemonNumber() {
+    const values=new Uint32Array(1); const limit=4294967296 - (4294967296 % 9998);
+    do { crypto.getRandomValues(values); } while(values[0]>=limit);
+    return 2 + values[0] % 9998;
+  }
+  let guestPokemonNumber=randomPokemonNumber();
+  function pokemonNumber() {
+    return (document.getElementById('pokemonName').value.trim().toLowerCase()==='jheel' ? 1 : guestPokemonNumber).toString().padStart(4,'0');
+  }
+  document.getElementById('pokemonName').addEventListener('change',()=>{ guestPokemonNumber=randomPokemonNumber();render(); });
   function renderPokemonCard(c) {
     const value = id => document.getElementById(id).value.trim();
     const type = value('pokemonType');
@@ -815,7 +889,7 @@
       c.font='bold 28px Arial'; c.fillText('Tap to add your photo',W/2,410);
     }
     c.restore();
-    c.fillStyle='#dfc88c'; c.fillRect(43,654,544,31); c.textAlign='center'; c.fillStyle='#514735'; c.font='italic 17px Arial'; c.fillText('NO. 001  •  ' + type + ' Pokémon  •  Birthday edition',W/2,670);
+    c.fillStyle='#dfc88c'; c.fillRect(43,654,544,31); c.textAlign='center'; c.fillStyle='#514735'; c.font='italic 17px Arial'; c.fillText('NO. ' + pokemonNumber() + '  •  ' + type + ' Pokémon  •  Birthday edition',W/2,670);
     drawEnergy(c,64,737,16,type); drawEnergy(c,102,737,16,'Normal');
     c.textAlign='left'; c.font='bold 29px Arial'; c.fillText(value('pokemonAttack') || 'Side Quest',137,742,370);
     c.textAlign='right'; c.fillText(String(Math.min(999,Math.max(0,Number(value('pokemonDamage')) || 0))),580,742);
@@ -833,7 +907,7 @@
     if (!retreat) c.fillText('—',459,928);
     for (let i=0;i<retreat;i++) drawEnergy(c,459+i*30,928,12,'Normal');
     c.textAlign='center'; c.font='italic 18px Arial'; c.fillText("Jheel’s Birthday 2026 • Golden Gate Park",W/2,951);
-    c.font='15px Arial'; c.fillText('A one-of-a-kind birthday Pokémon • 001 / 001 ★',W/2,980);
+    c.font='15px Arial'; c.fillText('Birthday collection • No. ' + pokemonNumber() + ' ★',W/2,980);
     c.restore();
   }
   const ATTACK_IDEAS = {"Yap Attack": ["One story becomes three. Deal 50 damage; your opponent loses their train of thought.", 50], "Delulu Shield": ["Stay relentlessly positive. Block the next attack and keep the bad vibes out.", 0], "Organized Chaos": ["Change every plan. Deal 70 damage and make your opponent shuffle their hand.", 70], "Side Eye": ["Say everything without saying a word. The look alone deals 50 damage.", 50], "Rice Bowl Reset": ["A good rice bowl makes everything better. Recover 50 HP; deal no damage.", 0], "Lore Drop": ["Reveal unexpected backstory. Deal 60 damage while your opponent processes the plot.", 60], "Laughing Fit": ["Set your opponent off laughing. Deal 40 damage; they skip their next turn.", 40], "Weaponized Charm": ["Ask with a smile. Deal 70 damage, ignoring your opponent’s resistance.", 70], "Power Nap": ["Skip your next turn. Wake up with 60 HP restored; deal no damage.", 0], "Receipts Ready": ["Reveal the screenshot. The evidence deals 90 damage.", 90], "Trust Me, I Know a Spot": ["Take the scenic detour. Find great food and recover 50 HP; deal no damage.", 0], "Selective Hearing": ["That sounds like a tomorrow problem. Ignore the next incoming attack.", 0], "Matcha Boost": ["Sip a little green magic. Your next attack deals 30 extra damage.", 0], "Side Quest": ["Lure your opponent off course. Discover unexpected joys while they lose a turn.", 60], "Double Text": ["Send a follow-up. Deal 40 damage; flip a coin to deal 40 more.", 40], "Irish Goodbye": ["Slip away on a high note. Switch out without paying a retreat cost.", 0], "Spiral Session": ["One detail, five scenarios. Deal 50 damage and leave your opponent confused.", 50], "Pep Talk": ["Remind a friend who they are. You both recover 30 HP; deal no damage.", 0], "One Last Reel": ["Just one more. Deal 60 damage and trap your opponent in the scroll for a turn.", 60], "Happy Dance": ["Let the good mood move you. Deal 50 damage and recover 20 HP.", 50]};
@@ -899,19 +973,21 @@
 
   function refreshTitle() {
     title.textContent = THEMES[theme].title();
-    document.querySelector('[data-theme="zodiac"] .ico').textContent = SIGNS[sign];
+    const zodiacIcon=document.createElement('canvas'); zodiacIcon.width=100; zodiacIcon.height=100;
+    drawZodiac(zodiacIcon.getContext('2d'),0,0,1,theme==='zodiac' ? '#2a0a24' : '#f5c96a');
+    const zodiacImage=document.createElement('img');zodiacImage.src=zodiacIcon.toDataURL();zodiacImage.alt=sign;zodiacImage.style.width='24px';zodiacImage.style.height='24px';
+    document.querySelector('[data-theme="zodiac"] .ico').replaceChildren(zodiacImage);
     const birdIcon=document.createElement('canvas'); birdIcon.width=100; birdIcon.height=100;
     drawBird(birdIcon.getContext('2d'),0,0,1,false);
     const birdImage=document.createElement('img'); birdImage.src=birdIcon.toDataURL(); birdImage.alt=bird;
     birdImage.style.width='24px'; birdImage.style.height='24px';
     document.querySelector('[data-theme="wingspan"] .ico').replaceChildren(birdImage);
     const type = document.getElementById('pokemonType').value;
-    const symbols = { Electric:'ϟ', Fire:'▲', Water:'●', Grass:'♣', Psychic:'◉', Fighting:'◆', Dark:'☾', Fairy:'✦', Dragon:'✶', Normal:'★' };
-    const pokemonIcon = document.querySelector('[data-theme="pokemon"] .ico');
-    pokemonIcon.textContent = symbols[type];
-    pokemonIcon.style.background = TYPE_COLORS[type];
-    pokemonIcon.style.color = '#302e2a';
-    pokemonIcon.style.borderRadius = '50%';
+    const energyIcon=document.createElement('canvas');energyIcon.width=64;energyIcon.height=64;
+    drawEnergy(energyIcon.getContext('2d'),32,32,30,type);
+    const energyImage=document.createElement('img');energyImage.src=energyIcon.toDataURL();energyImage.alt=type;energyImage.style.width='24px';energyImage.style.height='24px';
+    document.querySelector('[data-theme="pokemon"] .ico').replaceChildren(energyImage);
+
   }
 
   // ---------- theme picker ----------
@@ -1102,7 +1178,7 @@
     render();
     return new Promise((res) => canvas.toBlob(res, 'image/png'));
   }
-  function fileName() { return 'jheel-2026-' + THEMES[theme].file() + '.png'; }
+  function fileName() { return 'jheel-2026-' + THEMES[theme].file() + (theme==='pokemon' ? '-' + pokemonNumber() : '') + '.png'; }
 
   downloadBtn.addEventListener('click', async () => {
     const blob = await getBlob();
@@ -1113,6 +1189,7 @@
     a.download = fileName();
     document.body.appendChild(a);
     a.click();
+    if (theme==='pokemon') { guestPokemonNumber=randomPokemonNumber(); render(); }
     document.getElementById('printHelp').classList.remove('hidden');
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 30000);
